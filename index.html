@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,7 +9,7 @@
 
 <meta
     name="description"
-    content="SD Electrical & Security Ltd — electrical installations, security systems, CCTV and professional electrical services across Birmingham and the surrounding areas."
+    content="SD Electrical & Security Ltd — electrical installations, security systems, CCTV, alarms, access control, electrical testing and specialist services across Birmingham and the West Midlands."
 >
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +22,10 @@
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *,
 *::before,
 *::after{
@@ -31,18 +36,20 @@
 
 html{
     scroll-behavior:smooth;
+    overflow-x:hidden;
 }
 
 body{
     font-family:"DM Sans",sans-serif;
-    background:#f3f1ec;
-    color:#151515;
+    background:#f4f3f0;
+    color:#171717;
     overflow-x:hidden;
 }
 
 img{
     display:block;
     width:100%;
+    max-width:100%;
 }
 
 a{
@@ -63,19 +70,46 @@ button{
     cursor:pointer;
 }
 
+
+/* =========================================================
+   SD BRAND SYSTEM
+========================================================= */
+
 :root{
-    --cream:#f3f1ec;
-    --paper:#ebe8e0;
-    --white:#fff;
+
+    /* SD LOGO COLOURS */
+
+    --red:#f4382d;
+    --red-dark:#c92b23;
+    --red-deep:#9e211c;
+
+    --silver:#b8b9bb;
+    --silver-dark:#77797c;
+    --silver-light:#e1e2e3;
+
+    --cream:#f4f3f0;
+    --paper:#e9e7e2;
+    --white:#ffffff;
+
     --dark:#151515;
-    --muted:#686760;
-    --line:rgba(21,21,21,.15);
+    --dark-2:#1c1c1c;
+    --dark-3:#252525;
+
+    --muted:#686866;
+
+    --line:rgba(21,21,21,.14);
+    --red-line:rgba(244,56,45,.28);
 
     --serif:"Instrument Serif",serif;
     --sans:"DM Sans",sans-serif;
 
     --max:1440px;
 }
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
 
 .container{
     width:min(calc(100% - 80px),var(--max));
@@ -84,6 +118,15 @@ button{
 
 .section{
     padding:150px 0;
+}
+
+section[id]{
+    scroll-margin-top:90px;
+}
+
+.serif{
+    font-family:var(--serif);
+    font-weight:400;
 }
 
 .eyebrow{
@@ -96,28 +139,26 @@ button{
     letter-spacing:.15em;
     text-transform:uppercase;
 
-    color:#696862;
+    color:var(--red);
 }
 
 .eyebrow::before{
     content:"";
+
     width:34px;
     height:1px;
-    background:#151515;
-}
 
-.serif{
-    font-family:var(--serif);
-    font-weight:400;
-}
-
-.muted{
-    color:var(--muted);
+    background:var(--red);
 }
 
 .line{
     height:1px;
     background:var(--line);
+}
+
+::selection{
+    background:var(--red);
+    color:#fff;
 }
 
 
@@ -134,7 +175,7 @@ button{
     min-height:54px;
     padding:0 25px;
 
-    background:#151515;
+    background:var(--red);
     color:#fff;
 
     font-size:12px;
@@ -145,21 +186,39 @@ button{
     transition:
         transform .35s ease,
         background .35s ease,
-        color .35s ease;
+        color .35s ease,
+        box-shadow .35s ease;
 }
 
 .btn:hover{
     transform:translateY(-2px);
-    background:#2b2b2b;
+
+    background:var(--red-dark);
+
+    box-shadow:
+        0 12px 30px rgba(244,56,45,.22);
 }
 
 .btn-light{
-    background:#f3f1ec;
+    background:#fff;
     color:#151515;
 }
 
 .btn-light:hover{
     background:#fff;
+    color:var(--red);
+}
+
+.btn-outline{
+    background:transparent;
+    border:1px solid rgba(255,255,255,.35);
+    color:#fff;
+}
+
+.btn-outline:hover{
+    background:var(--red);
+    border-color:var(--red);
+    color:#fff;
 }
 
 
@@ -171,7 +230,9 @@ button{
     position:fixed;
     top:0;
     left:0;
+
     width:100%;
+
     z-index:1000;
 
     padding:22px 0;
@@ -181,17 +242,21 @@ button{
     transition:
         background .4s ease,
         color .4s ease,
-        padding .4s ease;
+        padding .4s ease,
+        box-shadow .4s ease;
 }
 
 .site-header.scrolled{
-    background:rgba(243,241,236,.96);
+    background:rgba(244,243,240,.96);
     color:#151515;
 
     padding:15px 0;
 
     backdrop-filter:blur(15px);
     -webkit-backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.06);
 }
 
 .nav{
@@ -200,6 +265,7 @@ button{
 
     display:grid;
     grid-template-columns:1fr auto 1fr;
+
     align-items:center;
 }
 
@@ -208,7 +274,6 @@ button{
 
     display:flex;
     align-items:center;
-    gap:12px;
 }
 
 .logo img{
@@ -222,6 +287,7 @@ button{
     display:flex;
     align-items:center;
     justify-content:center;
+
     gap:27px;
 
     font-size:11px;
@@ -230,36 +296,180 @@ button{
     text-transform:uppercase;
 }
 
-.nav-links a{
+.nav-links > a{
     position:relative;
     opacity:.88;
-    transition:opacity .25s ease;
+
+    transition:
+        opacity .25s ease,
+        color .25s ease;
 }
 
-.nav-links a:hover{
+.nav-links > a:hover{
     opacity:1;
+    color:var(--red);
 }
 
-.nav-links a::after{
+.nav-links > a::after{
     content:"";
+
     position:absolute;
     left:0;
     bottom:-7px;
+
     width:0;
     height:1px;
-    background:currentColor;
+
+    background:var(--red);
+
     transition:width .3s ease;
 }
 
-.nav-links a:hover::after{
+.nav-links > a:hover::after{
     width:100%;
 }
+
+
+/* =========================================================
+   SERVICES DROPDOWN
+========================================================= */
+
+.nav-dropdown{
+    position:relative;
+}
+
+.nav-dropdown-toggle{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    gap:6px;
+
+    padding:0;
+
+    color:inherit;
+
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+
+    opacity:.88;
+
+    transition:
+        opacity .25s ease,
+        color .25s ease;
+}
+
+.nav-dropdown-toggle:hover{
+    opacity:1;
+    color:var(--red);
+}
+
+.nav-dropdown-arrow{
+    font-size:13px;
+    line-height:1;
+
+    transition:transform .3s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-arrow,
+.nav-dropdown.open .nav-dropdown-arrow{
+    transform:rotate(180deg);
+}
+
+.nav-dropdown-menu{
+    position:absolute;
+
+    top:calc(100% + 22px);
+    left:50%;
+
+    width:235px;
+
+    transform:translate(-50%,-8px);
+
+    opacity:0;
+    visibility:hidden;
+
+    padding:10px 0;
+
+    background:#f4f3f0;
+    color:#151515;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.14);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease,
+        visibility .25s ease;
+}
+
+.nav-dropdown-menu::before{
+    content:"";
+
+    position:absolute;
+
+    top:-7px;
+    left:50%;
+
+    width:14px;
+    height:14px;
+
+    background:#f4f3f0;
+
+    transform:translateX(-50%) rotate(45deg);
+
+}
+
+.nav-dropdown-menu a{
+    display:block;
+
+    padding:13px 20px;
+
+    color:#151515;
+
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+
+    opacity:.75;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        opacity .25s ease,
+        padding-left .25s ease;
+}
+
+.nav-dropdown-menu a:hover{
+    background:#ebe8e0;
+    color:#151515;
+    opacity:1;
+    padding-left:25px;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,0);
+}
+
+
+/* =========================================================
+   HEADER RIGHT
+========================================================= */
 
 .header-right{
     justify-self:end;
 
     display:flex;
     align-items:center;
+
     gap:18px;
 }
 
@@ -267,24 +477,55 @@ button{
     font-size:11px;
     font-weight:700;
     letter-spacing:.06em;
+
+    transition:color .25s ease;
+}
+
+.header-phone:hover{
+    color:var(--red);
 }
 
 .header-cta{
-    min-height:42px;
-    padding:0 18px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-    background:#fff;
-    color:#151515;
+    height:42px;
+    padding:0 20px;
+
+    background:var(--red);
+    color:#fff;
 
     font-size:10px;
     font-weight:700;
     letter-spacing:.1em;
     text-transform:uppercase;
+
+    white-space:nowrap;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.header-cta:hover{
+    background:var(--red-dark);
+    color:#fff;
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(244,56,45,.22);
 }
 
 .site-header.scrolled .header-cta{
-    background:#151515;
+    background:var(--red);
     color:#fff;
+}
+
+.site-header.scrolled .header-cta:hover{
+    background:var(--red-dark);
 }
 
 .menu-toggle{
@@ -298,10 +539,17 @@ button{
 
 .menu-toggle span{
     display:block;
+
     width:18px;
     height:1px;
+
     background:currentColor;
+
     margin:4px auto;
+
+    transition:
+        transform .25s ease,
+        opacity .25s ease;
 }
 
 
@@ -311,6 +559,7 @@ button{
 
 .hero{
     min-height:100svh;
+
     position:relative;
 
     display:flex;
@@ -318,32 +567,44 @@ button{
 
     overflow:hidden;
 
-    background:#181818;
+    background:
+        radial-gradient(
+            circle at 75% 35%,
+            rgba(244,56,45,.13),
+            transparent 35%
+        ),
+        #171717;
+
     color:#fff;
 }
 
 .hero-image{
     position:absolute;
     inset:0;
+
     z-index:0;
 }
 
 .hero-image img{
     width:100%;
     height:100%;
+
     object-fit:cover;
     object-position:center;
 
-    opacity:.28;
+    opacity:.34;
 
     filter:
-        saturate(.65)
-        contrast(.92)
-        brightness(.82);
+        saturate(.55)
+        contrast(1.02)
+        brightness(.78);
+
+    transform:scale(1.02);
 }
 
 .hero-image::after{
     content:"";
+
     position:absolute;
     inset:0;
 
@@ -351,14 +612,18 @@ button{
         linear-gradient(
             180deg,
             rgba(10,10,10,.70) 0%,
-            rgba(10,10,10,.42) 38%,
-            rgba(10,10,10,.66) 65%,
-            rgba(10,10,10,.94) 100%
+            rgba(15,12,12,.38) 38%,
+            rgba(20,13,12,.67) 65%,
+            rgba(10,10,10,.96) 100%
         );
+
+    box-shadow:
+        inset 0 -1px 0 rgba(244,56,45,.45);
 }
 
 .hero-content{
     position:relative;
+
     z-index:2;
 
     width:min(calc(100% - 80px),var(--max));
@@ -386,10 +651,14 @@ button{
 
 .hero-location span{
     display:inline-block;
+
     width:30px;
     height:1px;
-    background:rgba(255,255,255,.5);
+
+    background:var(--red);
+
     vertical-align:middle;
+
     margin-right:10px;
 }
 
@@ -399,17 +668,22 @@ button{
 }
 
 .hero-title{
-    max-width:1000px;
+    max-width:1100px;
 
     font-size:clamp(65px,8.8vw,145px);
+
     line-height:.82;
+
     letter-spacing:-.055em;
+
     font-weight:500;
 }
 
 .hero-title em{
     font-family:var(--serif);
     font-weight:400;
+
+    color:#f5f5f5;
 }
 
 .hero-bottom{
@@ -417,7 +691,9 @@ button{
 
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:80px;
+
     align-items:end;
 }
 
@@ -426,6 +702,7 @@ button{
 
     font-size:16px;
     line-height:1.7;
+
     color:rgba(255,255,255,.72);
 }
 
@@ -433,7 +710,12 @@ button{
     display:flex;
     align-items:center;
     justify-content:flex-end;
+
     gap:12px;
+}
+
+.hero-actions .btn{
+    min-width:175px;
 }
 
 .hero-trust{
@@ -441,7 +723,7 @@ button{
 
     padding-top:20px;
 
-    border-top:1px solid rgba(255,255,255,.22);
+    border-top:1px solid rgba(244,56,45,.45);
 
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -452,8 +734,11 @@ button{
 
     font-size:10px;
     line-height:1.5;
+
     font-weight:600;
+
     letter-spacing:.08em;
+
     text-transform:uppercase;
 
     color:rgba(255,255,255,.6);
@@ -461,8 +746,11 @@ button{
 
 .hero-trust-item strong{
     display:block;
+
     color:#fff;
+
     font-size:11px;
+
     margin-bottom:4px;
 }
 
@@ -473,11 +761,21 @@ button{
 
 .intro{
     padding:150px 0 130px;
+
+    background:
+        radial-gradient(
+            circle at 95% 20%,
+            rgba(244,56,45,.055),
+            transparent 28%
+        ),
+        var(--cream);
 }
 
 .intro-grid{
     display:grid;
+
     grid-template-columns:1fr 1.55fr;
+
     gap:90px;
 }
 
@@ -485,19 +783,24 @@ button{
     max-width:400px;
 
     font-size:clamp(45px,5.7vw,82px);
+
     line-height:.92;
+
     letter-spacing:-.04em;
 }
 
 .intro-heading em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .intro-copy{
     max-width:720px;
 
     font-size:24px;
+
     line-height:1.48;
+
     letter-spacing:-.025em;
 }
 
@@ -509,6 +812,7 @@ button{
     margin-top:80px;
 
     display:grid;
+
     grid-template-columns:1fr 1fr 1fr;
 
     border-top:1px solid var(--line);
@@ -516,6 +820,7 @@ button{
 
 .intro-stat{
     padding:25px 30px 0 0;
+
     border-right:1px solid var(--line);
 }
 
@@ -528,8 +833,12 @@ button{
     display:block;
 
     font-family:var(--serif);
+
     font-size:42px;
+
     font-weight:400;
+
+    color:var(--red);
 
     margin-bottom:8px;
 }
@@ -537,32 +846,44 @@ button{
 .intro-stat span{
     font-size:11px;
     line-height:1.5;
+
     text-transform:uppercase;
     letter-spacing:.09em;
+
     color:var(--muted);
 }
 
 
 /* =========================================================
-   TRUST
+   TRUST STRIP
 ========================================================= */
 
 .trust-strip{
-    background:#151515;
+    background:
+        linear-gradient(
+            105deg,
+            #141414,
+            #202020
+        );
+
     color:#fff;
 
     padding:28px 0;
+
+    border-top:1px solid rgba(244,56,45,.4);
+    border-bottom:1px solid rgba(244,56,45,.15);
 }
 
 .trust-grid{
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
 }
 
 .trust-item{
     padding:5px 30px;
 
-    border-right:1px solid rgba(255,255,255,.18);
+    border-right:1px solid rgba(255,255,255,.15);
 }
 
 .trust-item:first-child{
@@ -577,14 +898,19 @@ button{
     display:block;
 
     font-size:11px;
+
     letter-spacing:.1em;
+
     text-transform:uppercase;
 
     margin-bottom:5px;
+
+    color:#fff;
 }
 
 .trust-item span{
     font-size:11px;
+
     color:rgba(255,255,255,.55);
 }
 
@@ -594,12 +920,19 @@ button{
 ========================================================= */
 
 .services{
-    background:#ebe8e0;
+    background:
+        linear-gradient(
+            135deg,
+            #e9e7e2 0%,
+            #f3f2ef 100%
+        );
 }
 
 .services-header{
     display:grid;
+
     grid-template-columns:1fr 1.4fr;
+
     gap:80px;
 
     margin-bottom:90px;
@@ -607,19 +940,24 @@ button{
 
 .services-heading{
     font-size:clamp(55px,7vw,100px);
+
     line-height:.85;
+
     letter-spacing:-.05em;
 }
 
 .services-heading em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .services-intro{
     max-width:600px;
 
     font-size:18px;
+
     line-height:1.65;
+
     color:var(--muted);
 
     padding-top:15px;
@@ -627,6 +965,7 @@ button{
 
 .service-row{
     display:grid;
+
     grid-template-columns:1.15fr .85fr;
 
     min-height:570px;
@@ -648,50 +987,124 @@ button{
 
 .service-image{
     position:relative;
+
     min-height:570px;
+
     overflow:hidden;
+}
+
+.service-image::after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(244,56,45,.10),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,0) 55%,
+            rgba(0,0,0,.22) 100%
+        );
+
+    pointer-events:none;
 }
 
 .service-image img{
     width:100%;
     height:100%;
+
     object-fit:cover;
 
-    transition:transform .8s cubic-bezier(.2,.7,.2,1);
+    transition:
+        transform .8s cubic-bezier(.2,.7,.2,1),
+        filter .5s ease;
 }
 
 .service-row:hover .service-image img{
     transform:scale(1.035);
+
+    filter:
+        saturate(1.08)
+        contrast(1.02);
 }
 
 .service-content{
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
 
     padding:80px 9%;
+
+    position:relative;
+}
+
+.service-content::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:50%;
+
+    width:3px;
+    height:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--red),
+            var(--silver)
+        );
+
+    transform:translateY(-50%);
+
+    transition:height .5s ease;
+}
+
+.service-row:hover .service-content::before{
+    height:70%;
 }
 
 .service-number{
     font-size:11px;
+
     letter-spacing:.12em;
-    color:#88857e;
+
+    color:var(--red);
+
     margin-bottom:35px;
 }
 
 .service-title{
     font-size:clamp(42px,5vw,70px);
+
     line-height:.9;
+
     letter-spacing:-.045em;
 
     margin-bottom:28px;
+}
+
+.service-title em{
+    font-family:var(--serif);
+    color:var(--red);
 }
 
 .service-copy{
     max-width:480px;
 
     font-size:16px;
+
     line-height:1.7;
+
     color:var(--muted);
 
     margin-bottom:38px;
@@ -699,15 +1112,24 @@ button{
 
 .text-link{
     display:inline-flex;
+
     align-items:center;
+
     gap:13px;
 
     width:max-content;
 
     font-size:11px;
+
     font-weight:700;
+
     letter-spacing:.1em;
+
     text-transform:uppercase;
+
+    color:var(--red);
+
+    transition:color .25s ease;
 }
 
 .text-link::after{
@@ -718,8 +1140,108 @@ button{
     transition:transform .3s ease;
 }
 
+.text-link:hover{
+    color:var(--red-dark);
+}
+
 .text-link:hover::after{
     transform:translate(3px,-3px);
+}
+
+
+/* =========================================================
+   WHY SD
+========================================================= */
+
+.why-sd{
+    background:
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(244,56,45,.05),
+            transparent 30%
+        ),
+        var(--cream);
+}
+
+.why-grid{
+    display:grid;
+
+    grid-template-columns:.8fr 1.2fr;
+
+    gap:110px;
+}
+
+.why-title{
+    font-size:clamp(60px,7vw,100px);
+
+    line-height:.82;
+
+    letter-spacing:-.055em;
+}
+
+.why-title em{
+    font-family:var(--serif);
+    color:var(--red);
+}
+
+.why-intro{
+    max-width:600px;
+
+    font-size:22px;
+
+    line-height:1.5;
+
+    letter-spacing:-.02em;
+
+    margin-bottom:65px;
+}
+
+.why-list{
+    border-top:1px solid var(--line);
+}
+
+.why-item{
+    display:grid;
+
+    grid-template-columns:65px 1fr 1fr;
+
+    gap:25px;
+
+    padding:27px 0;
+
+    border-bottom:1px solid var(--line);
+
+    transition:
+        padding .35s ease,
+        background .35s ease;
+}
+
+.why-item:hover{
+    padding-left:12px;
+    padding-right:12px;
+
+    background:rgba(244,56,45,.035);
+}
+
+.why-number{
+    font-family:var(--serif);
+
+    font-size:27px;
+
+    color:var(--red);
+}
+
+.why-item h3{
+    font-size:17px;
+    font-weight:500;
+}
+
+.why-item p{
+    font-size:13px;
+
+    line-height:1.65;
+
+    color:var(--muted);
 }
 
 
@@ -728,24 +1250,57 @@ button{
 ========================================================= */
 
 .approach{
-    background:#151515;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(244,56,45,.11),
+            transparent 28%
+        ),
+        #151515;
+
     color:#fff;
+
+    position:relative;
+}
+
+.approach::after{
+    content:"";
+
+    position:absolute;
+
+    right:0;
+    top:0;
+
+    width:1px;
+    height:100%;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(244,56,45,.5),
+            transparent
+        );
 }
 
 .approach-grid{
     display:grid;
+
     grid-template-columns:.75fr 1.6fr;
+
     gap:100px;
 }
 
 .approach-heading{
     font-size:clamp(58px,7.5vw,105px);
+
     line-height:.83;
+
     letter-spacing:-.055em;
 }
 
 .approach-heading em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .approach-content{
@@ -756,7 +1311,9 @@ button{
     max-width:720px;
 
     font-size:25px;
+
     line-height:1.45;
+
     letter-spacing:-.02em;
 
     margin-bottom:75px;
@@ -768,17 +1325,29 @@ button{
 
 .approach-item{
     display:grid;
+
     grid-template-columns:80px 1fr 1fr;
+
     gap:30px;
 
     padding:26px 0;
 
     border-bottom:1px solid rgba(255,255,255,.18);
+
+    transition:
+        padding .35s ease,
+        background .35s ease;
+}
+
+.approach-item:hover{
+    padding-left:12px;
+    background:rgba(244,56,45,.035);
 }
 
 .approach-item-number{
     font-size:11px;
-    color:rgba(255,255,255,.4);
+
+    color:var(--red);
 }
 
 .approach-item h3{
@@ -788,7 +1357,9 @@ button{
 
 .approach-item p{
     font-size:13px;
+
     line-height:1.65;
+
     color:rgba(255,255,255,.52);
 }
 
@@ -799,115 +1370,200 @@ button{
 
 .security-feature{
     padding:120px 0;
-    background:#f3f1ec;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e9e7e2,
+            #f4f3f0
+        );
 }
 
 .security-grid{
     display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:100px;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:80px;
+
     align-items:center;
-}
-
-.security-copy{
-    padding-left:5%;
-}
-
-.security-title{
-    max-width:620px;
-
-    font-size:clamp(50px,6.3vw,88px);
-    line-height:.88;
-    letter-spacing:-.05em;
-
-    margin:28px 0;
-}
-
-.security-title em{
-    font-family:var(--serif);
-}
-
-.security-text{
-    max-width:500px;
-
-    font-size:17px;
-    line-height:1.7;
-    color:var(--muted);
-
-    margin-bottom:35px;
 }
 
 .security-image{
     height:650px;
 
-    position:relative;
     overflow:hidden;
 
-    border-radius:0 0 0 110px;
+    border-radius:0 0 0 90px;
+
+    position:relative;
+
+    box-shadow:
+        -18px 18px 0 var(--red);
+}
+
+.security-image::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border:1px solid rgba(244,56,45,.25);
+
+    pointer-events:none;
 }
 
 .security-image img{
+    width:100%;
     height:100%;
+
     object-fit:cover;
+
+    transition:
+        transform .8s cubic-bezier(.2,.7,.2,1);
+}
+
+.security-image:hover img{
+    transform:scale(1.035);
+}
+
+.security-copy{
+    max-width:600px;
+}
+
+.security-title{
+    font-size:clamp(50px,6vw,90px);
+
+    line-height:.87;
+
+    letter-spacing:-.05em;
+
+    margin:25px 0 30px;
+}
+
+.security-title em{
+    font-family:var(--serif);
+    color:var(--red);
+}
+
+.security-text{
+    font-size:18px;
+
+    line-height:1.7;
+
+    color:var(--muted);
+
+    margin-bottom:35px;
 }
 
 
 /* =========================================================
-   SELECTED WORK
+   WORK
 ========================================================= */
 
 .work{
-    background:#ebe8e0;
+    background:
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(244,56,45,.055),
+            transparent 28%
+        ),
+        var(--cream);
 }
 
 .work-header{
     display:grid;
+
     grid-template-columns:1fr 1fr;
-    gap:70px;
+
+    gap:80px;
 
     align-items:end;
 
-    margin-bottom:85px;
+    margin-bottom:75px;
 }
 
 .work-title{
-    font-size:clamp(60px,7vw,100px);
-    line-height:.82;
+    font-size:clamp(55px,7vw,100px);
+
+    line-height:.84;
+
     letter-spacing:-.055em;
 }
 
 .work-title em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .work-intro{
-    max-width:500px;
+    max-width:520px;
 
-    font-size:16px;
-    line-height:1.7;
+    font-size:18px;
+
+    line-height:1.65;
+
     color:var(--muted);
-
-    padding-bottom:6px;
 }
 
-.project-grid{
+.work-grid{
     display:grid;
-    grid-template-columns:1.38fr .62fr;
-    gap:18px;
+
+    grid-template-columns:1.5fr 1fr;
+
+    gap:10px;
 }
 
 .project-card{
     position:relative;
+
     overflow:hidden;
+
     background:#222;
 }
 
+.project-card::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:4px;
+
+    z-index:4;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--red),
+            var(--silver)
+        );
+
+    transform:scaleX(0);
+    transform-origin:left;
+
+    transition:transform .45s ease;
+}
+
+.project-card:hover::before{
+    transform:scaleX(1);
+}
+
 .project-card.large{
-    height:690px;
+    height:620px;
 }
 
 .project-card.small{
-    height:330px;
+    height:305px;
+}
+
+.project-stack{
+    display:grid;
+
+    gap:10px;
 }
 
 .project-card img{
@@ -917,109 +1573,55 @@ button{
     object-fit:cover;
 
     transition:
-        transform .9s cubic-bezier(.2,.7,.2,1),
-        filter .6s ease;
+        transform .8s cubic-bezier(.2,.7,.2,1),
+        filter .5s ease;
 }
 
 .project-card:hover img{
-    transform:scale(1.045);
+    transform:scale(1.04);
+
+    filter:
+        saturate(1.08)
+        contrast(1.03);
 }
 
-.project-card::after{
-    content:"";
-
+.project-overlay{
     position:absolute;
-    inset:0;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:35px;
+
+    color:#fff;
 
     background:
         linear-gradient(
             180deg,
-            rgba(0,0,0,0) 45%,
-            rgba(0,0,0,.72) 100%
+            transparent,
+            rgba(0,0,0,.82)
         );
 }
 
-.project-stack{
-    display:grid;
-    grid-template-rows:1fr 1fr;
-    gap:18px;
-}
-
-.project-info{
-    position:absolute;
-    left:28px;
-    right:28px;
-    bottom:27px;
-
-    z-index:3;
-
-    color:#fff;
-}
-
-.project-category{
+.project-overlay span{
     display:block;
 
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.14em;
+    font-size:10px;
+
+    letter-spacing:.13em;
+
     text-transform:uppercase;
 
-    color:rgba(255,255,255,.65);
+    color:var(--red);
 
-    margin-bottom:7px;
+    margin-bottom:8px;
 }
 
-.project-name{
-    font-family:var(--serif);
-    font-size:31px;
-    line-height:1;
-}
+.project-overlay h3{
+    font-size:25px;
 
-.project-arrow{
-    position:absolute;
-    right:27px;
-    bottom:27px;
-
-    z-index:3;
-
-    width:43px;
-    height:43px;
-
-    border:1px solid rgba(255,255,255,.5);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#fff;
-
-    transition:
-        background .3s ease,
-        color .3s ease;
-}
-
-.project-card:hover .project-arrow{
-    background:#fff;
-    color:#151515;
-}
-
-.work-footer{
-    margin-top:55px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    border-top:1px solid var(--line);
-
-    padding-top:25px;
-}
-
-.work-footer p{
-    font-size:11px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--muted);
+    font-weight:500;
 }
 
 
@@ -1028,32 +1630,44 @@ button{
 ========================================================= */
 
 .process{
-    background:#f3f1ec;
+    background:
+        linear-gradient(
+            135deg,
+            #e9e7e2,
+            #f4f3f0
+        );
 }
 
 .process-header{
     display:grid;
-    grid-template-columns:1fr 1.3fr;
-    gap:80px;
 
-    margin-bottom:80px;
+    grid-template-columns:.8fr 1.2fr;
+
+    gap:100px;
+
+    margin-bottom:75px;
 }
 
 .process-title{
-    font-size:clamp(55px,6.5vw,92px);
-    line-height:.85;
-    letter-spacing:-.05em;
+    font-size:clamp(55px,7vw,100px);
+
+    line-height:.84;
+
+    letter-spacing:-.055em;
 }
 
 .process-title em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
-.process-description{
-    max-width:580px;
+.process-intro{
+    max-width:650px;
 
-    font-size:18px;
-    line-height:1.65;
+    font-size:21px;
+
+    line-height:1.55;
+
     color:var(--muted);
 }
 
@@ -1063,177 +1677,53 @@ button{
 
 .process-row{
     display:grid;
-    grid-template-columns:80px 1fr 1fr 80px;
+
+    grid-template-columns:80px 1fr 40px;
+
+    gap:25px;
+
     align-items:center;
 
     padding:28px 0;
 
     border-bottom:1px solid var(--line);
 
-    transition:padding .3s ease;
+    transition:
+        padding .35s ease,
+        background .35s ease;
 }
 
 .process-row:hover{
-    padding-left:15px;
-    padding-right:15px;
+    padding-left:12px;
+    background:rgba(244,56,45,.035);
 }
 
 .process-number{
     font-family:var(--serif);
-    font-size:29px;
+
+    font-size:30px;
+
+    color:var(--red);
 }
 
 .process-name{
-    font-size:19px;
+    font-size:24px;
+
     font-weight:500;
 }
 
 .process-copy{
-    max-width:450px;
-
     font-size:13px;
+
     line-height:1.6;
+
     color:var(--muted);
 }
 
 .process-arrow{
-    justify-self:end;
     font-size:22px;
-}
 
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-.gallery{
-    background:#151515;
-    color:#fff;
-
-    overflow:hidden;
-}
-
-.gallery-header{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:70px;
-
-    margin-bottom:75px;
-}
-
-.gallery-title{
-    font-size:clamp(60px,7.5vw,105px);
-    line-height:.8;
-    letter-spacing:-.055em;
-}
-
-.gallery-title em{
-    font-family:var(--serif);
-}
-
-.gallery-copy{
-    max-width:500px;
-
-    align-self:end;
-
-    font-size:16px;
-    line-height:1.7;
-
-    color:rgba(255,255,255,.55);
-}
-
-.gallery-grid{
-    display:grid;
-
-    grid-template-columns:
-        1.05fr
-        .72fr
-        1.23fr;
-
-    grid-template-rows:
-        320px
-        440px
-        320px;
-
-    gap:14px;
-}
-
-.gallery-item{
-    position:relative;
-    overflow:hidden;
-    background:#242424;
-}
-
-.gallery-item img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    transition:
-        transform .9s cubic-bezier(.2,.7,.2,1),
-        filter .6s ease;
-}
-
-.gallery-item:hover img{
-    transform:scale(1.055);
-    filter:brightness(.82);
-}
-
-.gallery-item:nth-child(1){
-    grid-column:1;
-    grid-row:1 / span 2;
-}
-
-.gallery-item:nth-child(2){
-    grid-column:2;
-    grid-row:1;
-}
-
-.gallery-item:nth-child(3){
-    grid-column:3;
-    grid-row:1;
-}
-
-.gallery-item:nth-child(4){
-    grid-column:2;
-    grid-row:2 / span 2;
-}
-
-.gallery-item:nth-child(5){
-    grid-column:3;
-    grid-row:2;
-}
-
-.gallery-item:nth-child(6){
-    grid-column:1;
-    grid-row:3;
-}
-
-.gallery-item:nth-child(7){
-    grid-column:3;
-    grid-row:3;
-}
-
-.gallery-label{
-    position:absolute;
-    left:18px;
-    bottom:18px;
-
-    z-index:3;
-
-    padding:8px 11px;
-
-    background:rgba(15,15,15,.72);
-
-    backdrop-filter:blur(8px);
-
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-
-    color:#fff;
+    color:var(--red);
 }
 
 
@@ -1242,87 +1732,105 @@ button{
 ========================================================= */
 
 .reviews{
-    background:#ebe8e0;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(244,56,45,.12),
+            transparent 30%
+        ),
+        #151515;
+
+    color:#fff;
+
+    border-top:1px solid rgba(244,56,45,.3);
 }
 
 .reviews-header{
-    display:grid;
-    grid-template-columns:1fr 1.2fr;
-    gap:80px;
+    display:flex;
 
-    margin-bottom:80px;
+    justify-content:space-between;
+
+    align-items:end;
+
+    gap:50px;
+
+    margin-bottom:60px;
 }
 
 .reviews-title{
-    font-size:clamp(58px,7vw,100px);
-    line-height:.82;
-    letter-spacing:-.05em;
+    font-size:clamp(55px,7vw,100px);
+
+    line-height:.84;
+
+    letter-spacing:-.055em;
 }
 
 .reviews-title em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .reviews-intro{
-    max-width:550px;
+    max-width:400px;
 
-    font-size:17px;
+    font-size:15px;
+
     line-height:1.7;
-    color:var(--muted);
+
+    color:rgba(255,255,255,.55);
 }
 
-.review-layout{
+.review-grid{
     display:grid;
-    grid-template-columns:.6fr 1.4fr;
-    gap:70px;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:1px;
+
+    background:rgba(255,255,255,.14);
 }
 
-.review-image{
-    height:420px;
-    overflow:hidden;
+.review-card{
+    padding:40px;
+
+    background:#151515;
+
+    transition:
+        background .35s ease;
 }
 
-.review-image img{
-    height:100%;
-    object-fit:cover;
-}
-
-.review-list{
-    border-top:1px solid var(--line);
-}
-
-.review{
-    display:grid;
-    grid-template-columns:120px 1fr;
-    gap:30px;
-
-    padding:30px 0;
-
-    border-bottom:1px solid var(--line);
+.review-card:hover{
+    background:#1c1c1c;
 }
 
 .review-stars{
+    letter-spacing:.15em;
+
     font-size:11px;
-    letter-spacing:.1em;
+
+    color:var(--red);
+
+    margin-bottom:35px;
 }
 
-.review-text{
-    max-width:650px;
-
+.review-card p{
     font-family:var(--serif);
-    font-size:29px;
-    line-height:1.08;
+
+    font-size:27px;
+
+    line-height:1.15;
+
+    margin-bottom:40px;
 }
 
 .review-author{
-    margin-top:16px;
-
-    font-family:var(--sans);
     font-size:10px;
-    font-weight:700;
-    letter-spacing:.1em;
+
+    letter-spacing:.12em;
+
     text-transform:uppercase;
-    color:var(--muted);
+
+    color:rgba(255,255,255,.45);
 }
 
 
@@ -1331,35 +1839,41 @@ button{
 ========================================================= */
 
 .faq{
-    background:#f3f1ec;
+    background:
+        radial-gradient(
+            circle at 5% 15%,
+            rgba(244,56,45,.05),
+            transparent 28%
+        ),
+        var(--cream);
 }
 
-.faq-header{
-    margin-bottom:70px;
+.faq-grid{
+    display:grid;
+
+    grid-template-columns:.75fr 1.25fr;
+
+    gap:100px;
 }
 
 .faq-title{
-    max-width:900px;
+    font-size:clamp(55px,7vw,100px);
 
-    font-size:clamp(60px,7vw,100px);
-    line-height:.82;
+    line-height:.84;
+
     letter-spacing:-.055em;
 }
 
 .faq-title em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .faq-list{
-    max-width:1000px;
-    margin-left:auto;
-}
-
-.faq-item{
     border-top:1px solid var(--line);
 }
 
-.faq-item:last-child{
+.faq-item{
     border-bottom:1px solid var(--line);
 }
 
@@ -1367,57 +1881,126 @@ button{
     width:100%;
 
     display:grid;
-    grid-template-columns:60px 1fr 30px;
-    align-items:center;
 
-    padding:27px 0;
+    grid-template-columns:1fr 30px;
+
+    gap:20px;
 
     text-align:left;
-}
 
-.faq-number{
-    font-size:10px;
-    color:var(--muted);
-}
+    padding:25px 0;
 
-.faq-question span:nth-child(2){
-    font-size:18px;
+    font-size:16px;
+
     font-weight:500;
+
+    transition:color .25s ease;
 }
 
-.faq-icon{
-    font-size:22px;
-    font-weight:300;
+.faq-question:hover{
+    color:var(--red);
+}
 
-    transition:transform .35s ease;
+.faq-plus{
+    font-size:22px;
+
+    text-align:right;
+
+    color:var(--red);
+
+    transition:transform .3s ease;
 }
 
 .faq-answer{
-    max-height:0;
-    overflow:hidden;
+    display:grid;
 
-    transition:
-        max-height .45s ease,
-        padding .45s ease;
+    grid-template-rows:0fr;
+
+    transition:grid-template-rows .4s ease;
+}
+
+.faq-answer-inner{
+    overflow:hidden;
 }
 
 .faq-answer p{
     max-width:700px;
 
-    padding:0 60px;
+    padding-bottom:0;
 
     font-size:14px;
+
     line-height:1.7;
+
     color:var(--muted);
 }
 
 .faq-item.active .faq-answer{
-    max-height:300px;
-    padding-bottom:28px;
+    grid-template-rows:1fr;
 }
 
-.faq-item.active .faq-icon{
+.faq-item.active .faq-answer p{
+    padding-bottom:25px;
+}
+
+.faq-item.active .faq-plus{
     transform:rotate(45deg);
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.final-cta{
+    background:
+        linear-gradient(
+            135deg,
+            #e9e7e2 0%,
+            #f4f3f0 65%,
+            #f9e5e2 100%
+        );
+
+    padding:130px 0;
+
+    border-top:1px solid var(--line);
+}
+
+.final-cta-inner{
+    display:flex;
+
+    align-items:end;
+
+    justify-content:space-between;
+
+    gap:60px;
+}
+
+.final-cta-title{
+    max-width:900px;
+
+    font-size:clamp(60px,8vw,115px);
+
+    line-height:.82;
+
+    letter-spacing:-.06em;
+}
+
+.final-cta-title em{
+    font-family:var(--serif);
+    color:var(--red);
+}
+
+.final-cta-copy{
+    max-width:400px;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+    color:var(--muted);
+
+    margin-bottom:18px;
 }
 
 
@@ -1426,98 +2009,127 @@ button{
 ========================================================= */
 
 .contact{
-    background:#151515;
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(244,56,45,.13),
+            transparent 30%
+        ),
+        #151515;
+
     color:#fff;
+
+    border-top:1px solid rgba(244,56,45,.35);
 }
 
 .contact-grid{
     display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:100px;
+
+    grid-template-columns:.8fr 1.2fr;
+
+    gap:110px;
 }
 
 .contact-title{
-    max-width:700px;
+    font-size:clamp(55px,7vw,100px);
 
-    font-size:clamp(65px,8vw,115px);
-    line-height:.8;
-    letter-spacing:-.06em;
+    line-height:.84;
+
+    letter-spacing:-.055em;
 }
 
 .contact-title em{
     font-family:var(--serif);
+    color:var(--red);
 }
 
 .contact-copy{
-    max-width:470px;
+    max-width:480px;
 
-    margin-top:40px;
+    font-size:17px;
 
-    font-size:16px;
     line-height:1.7;
 
     color:rgba(255,255,255,.55);
+
+    margin-top:30px;
 }
 
 .contact-details{
-    margin-top:70px;
-
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+    margin-top:55px;
 }
 
 .contact-detail{
-    display:flex;
-    align-items:flex-start;
-    gap:20px;
+    padding:20px 0;
 
-    padding-bottom:18px;
+    border-top:1px solid rgba(255,255,255,.16);
+}
 
+.contact-detail:last-child{
     border-bottom:1px solid rgba(255,255,255,.16);
 }
 
-.contact-detail small{
-    width:90px;
+.contact-detail span{
+    display:block;
 
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.13em;
+    font-size:10px;
+
+    letter-spacing:.12em;
+
     text-transform:uppercase;
 
-    color:rgba(255,255,255,.4);
+    color:var(--red);
+
+    margin-bottom:7px;
 }
 
 .contact-detail a,
-.contact-detail span{
-    font-size:15px;
+.contact-detail strong{
+    font-size:17px;
+
+    font-weight:500;
+}
+
+.contact-detail a{
+    transition:color .25s ease;
+}
+
+.contact-detail a:hover{
+    color:var(--red);
 }
 
 .contact-form{
-    padding-top:10px;
+    display:grid;
+
+    gap:20px;
 }
 
 .form-row{
     display:grid;
+
     grid-template-columns:1fr 1fr;
-    gap:18px;
+
+    gap:20px;
 }
 
 .form-group{
-    margin-bottom:22px;
+    display:flex;
+
+    flex-direction:column;
+
+    gap:9px;
 }
 
 .form-group label{
-    display:block;
+    font-size:10px;
 
-    margin-bottom:9px;
-
-    font-size:9px;
     font-weight:700;
-    letter-spacing:.13em;
+
+    letter-spacing:.12em;
+
     text-transform:uppercase;
 
-    color:rgba(255,255,255,.45);
+    color:rgba(255,255,255,.48);
 }
 
 .form-group input,
@@ -1538,17 +2150,18 @@ button{
 
     border-radius:0;
 
-    transition:border-color .3s ease;
+    transition:border-color .25s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus{
-    border-color:#fff;
+    border-color:var(--red);
 }
 
 .form-group textarea{
     min-height:130px;
+
     resize:vertical;
 }
 
@@ -1561,118 +2174,9 @@ button{
 }
 
 .form-submit{
-    margin-top:15px;
-}
+    margin-top:10px;
 
-.form-submit .btn{
-    min-width:190px;
-}
-
-
-/* =========================================================
-   SERVICE AREA
-========================================================= */
-
-.area{
-    background:#ebe8e0;
-}
-
-.area-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:70px;
-    align-items:center;
-}
-
-.area-title{
-    font-size:clamp(55px,6.5vw,92px);
-    line-height:.83;
-    letter-spacing:-.055em;
-}
-
-.area-title em{
-    font-family:var(--serif);
-}
-
-.area-copy{
-    max-width:500px;
-
-    font-size:17px;
-    line-height:1.7;
-    color:var(--muted);
-
-    margin:30px 0 35px;
-}
-
-.area-map{
-    height:500px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #dad7cf,
-            #c9c6bd
-        );
-
-    position:relative;
-    overflow:hidden;
-}
-
-.area-map::before{
-    content:"";
-
-    position:absolute;
-    inset:-30%;
-
-    background-image:
-        linear-gradient(
-            30deg,
-            transparent 47%,
-            rgba(21,21,21,.09) 48%,
-            rgba(21,21,21,.09) 49%,
-            transparent 50%
-        ),
-        linear-gradient(
-            115deg,
-            transparent 48%,
-            rgba(21,21,21,.08) 49%,
-            transparent 50%
-        );
-
-    background-size:130px 100px;
-
-    transform:rotate(-8deg);
-}
-
-.area-marker{
-    position:absolute;
-    left:52%;
-    top:48%;
-
-    width:48px;
-    height:48px;
-
-    border-radius:50%;
-
-    background:#151515;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#fff;
-
-    box-shadow:
-        0 0 0 12px rgba(21,21,21,.1),
-        0 15px 30px rgba(0,0,0,.15);
-}
-
-.area-marker::after{
-    content:"SD";
-
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.08em;
+    justify-self:start;
 }
 
 
@@ -1681,76 +2185,88 @@ button{
 ========================================================= */
 
 .footer{
-    background:#151515;
+    background:#101010;
+
     color:#fff;
 
-    padding:65px 0 25px;
+    padding:70px 0 35px;
+
+    border-top:1px solid rgba(244,56,45,.25);
 }
 
 .footer-top{
     display:grid;
-    grid-template-columns:1.4fr .7fr .7fr;
-    gap:60px;
 
-    padding-bottom:80px;
+    grid-template-columns:1.4fr .6fr .6fr;
+
+    gap:80px;
+
+    padding-bottom:70px;
 
     border-bottom:1px solid rgba(255,255,255,.15);
 }
 
-.footer-brand{
-    max-width:400px;
-}
-
-.footer-logo{
-    width:120px;
-    margin-bottom:25px;
+.footer-logo img{
+    width:130px;
 }
 
 .footer-brand p{
     max-width:350px;
 
+    margin-top:25px;
+
     font-size:13px;
+
     line-height:1.7;
 
     color:rgba(255,255,255,.45);
 }
 
-.footer-column h4{
-    margin-bottom:20px;
+.footer-column{
+    display:flex;
 
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.13em;
-    text-transform:uppercase;
+    flex-direction:column;
 
-    color:rgba(255,255,255,.4);
+    gap:12px;
 }
 
-.footer-column a{
-    display:block;
+.footer-column strong{
+    font-size:10px;
+
+    letter-spacing:.13em;
+
+    text-transform:uppercase;
 
     margin-bottom:10px;
 
-    font-size:12px;
+    color:var(--red);
+}
 
-    color:rgba(255,255,255,.72);
+.footer-column a{
+    font-size:13px;
+
+    color:rgba(255,255,255,.55);
 
     transition:color .25s ease;
 }
 
 .footer-column a:hover{
-    color:#fff;
+    color:var(--red);
 }
 
 .footer-bottom{
-    padding-top:22px;
-
     display:flex;
-    justify-content:space-between;
-    align-items:center;
 
-    font-size:9px;
+    justify-content:space-between;
+
+    gap:30px;
+
+    padding-top:30px;
+
+    font-size:10px;
+
     letter-spacing:.08em;
+
     text-transform:uppercase;
 
     color:rgba(255,255,255,.35);
@@ -1763,6 +2279,7 @@ button{
 
 .reveal{
     opacity:0;
+
     transform:translateY(35px);
 
     transition:
@@ -1772,180 +2289,491 @@ button{
 
 .reveal.visible{
     opacity:1;
-    transform:none;
+
+    transform:translateY(0);
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   TABLET
 ========================================================= */
 
 @media(max-width:1100px){
 
-    .container,
-    .nav,
+    .container{
+        width:calc(100% - 50px);
+    }
+
+    .nav{
+        width:calc(100% - 50px);
+    }
+
     .hero-content{
-        width:min(calc(100% - 48px),var(--max));
+        width:calc(100% - 50px);
     }
 
     .nav-links{
-        gap:16px;
+        gap:18px;
     }
 
     .header-phone{
         display:none;
     }
 
-    .hero-title{
-        font-size:clamp(62px,10vw,105px);
+    .intro-grid,
+    .why-grid,
+    .approach-grid,
+    .security-grid,
+    .faq-grid,
+    .contact-grid{
+        gap:60px;
     }
 
-    .section{
-        padding:115px 0;
-    }
-
-    .security-grid{
+    .services-header{
         gap:50px;
-    }
-
-    .gallery-grid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:390px 300px 390px 300px;
-    }
-
-    .gallery-item:nth-child(1){
-        grid-column:1;
-        grid-row:1 / span 2;
-    }
-
-    .gallery-item:nth-child(2){
-        grid-column:2;
-        grid-row:1;
-    }
-
-    .gallery-item:nth-child(3){
-        grid-column:2;
-        grid-row:2;
-    }
-
-    .gallery-item:nth-child(4){
-        grid-column:1;
-        grid-row:3;
-    }
-
-    .gallery-item:nth-child(5){
-        grid-column:2;
-        grid-row:3 / span 2;
-    }
-
-    .gallery-item:nth-child(6){
-        grid-column:1;
-        grid-row:4;
-    }
-
-    .gallery-item:nth-child(7){
-        display:none;
     }
 }
 
 
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
 @media(max-width:900px){
 
+    html,
+    body{
+        width:100%;
+        max-width:100%;
+        overflow-x:hidden;
+    }
+
+    .container{
+        width:calc(100% - 34px);
+        max-width:none;
+    }
+
     .site-header{
-        padding:17px 0;
+        padding:15px 0;
+    }
+
+    .site-header.scrolled{
+        padding:12px 0;
     }
 
     .nav{
+        width:calc(100% - 34px);
+
         display:flex;
+
         justify-content:space-between;
+        align-items:center;
+
+        gap:15px;
     }
 
-    .nav-links{
-        display:none;
-
-        position:absolute;
-        top:75px;
-        left:24px;
-        right:24px;
-
-        padding:25px;
-
-        flex-direction:column;
-        align-items:flex-start;
-
-        background:#f3f1ec;
-        color:#151515;
-
-        box-shadow:0 20px 50px rgba(0,0,0,.12);
+    .logo{
+        min-width:0;
+        flex:1;
     }
 
-    .nav-links.open{
-        display:flex;
-    }
-
-    .menu-toggle{
-        display:block;
+    .logo img{
+        width:100px;
+        max-height:48px;
     }
 
     .header-right{
-        margin-left:auto;
-        margin-right:10px;
+        flex-shrink:0;
+
+        gap:10px;
     }
 
+    .header-phone,
     .header-cta{
         display:none;
     }
 
+    .menu-toggle{
+        display:block;
+
+        flex-shrink:0;
+    }
+
+    .nav-links{
+        position:fixed;
+
+        top:72px;
+        left:17px;
+        right:17px;
+
+        width:auto;
+        max-width:none;
+
+        max-height:calc(100svh - 92px);
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        justify-content:flex-start;
+
+        gap:0;
+
+        padding:20px;
+
+        background:rgba(244,243,240,.99);
+
+        color:#151515;
+
+            box-shadow:
+            0 25px 70px rgba(0,0,0,.16);
+
+        overflow-y:auto;
+        overflow-x:hidden;
+
+        opacity:0;
+        visibility:hidden;
+
+        transform:translateY(-10px);
+
+        transition:
+            opacity .3s ease,
+            visibility .3s ease,
+            transform .3s ease;
+
+        box-sizing:border-box;
+
+        z-index:2000;
+    }
+
+    .nav-links.open{
+        opacity:1;
+        visibility:visible;
+        transform:translateY(0);
+    }
+
+    .nav-links > a{
+        width:100%;
+
+        padding:13px 0;
+
+        border-bottom:1px solid rgba(21,21,21,.12);
+
+        opacity:1;
+
+        font-size:11px;
+    }
+
+    .nav-links > a::after{
+        display:none;
+    }
+
+
+    /* MOBILE DROPDOWN */
+
+    .nav-dropdown{
+        width:100%;
+        min-width:0;
+
+        border-bottom:1px solid rgba(21,21,21,.12);
+    }
+
+    .nav-dropdown-toggle{
+        width:100%;
+
+        min-height:46px;
+
+        justify-content:space-between;
+
+        padding:8px 0;
+
+        color:#151515;
+
+        opacity:1;
+    }
+
+    .nav-dropdown-menu{
+        position:static;
+
+        width:100%;
+        max-width:100%;
+
+        display:none;
+
+        margin:0;
+
+        padding:4px 0 9px 15px;
+
+        background:transparent;
+
+        box-shadow:none;
+
+        border-top:0;
+
+        opacity:1;
+        visibility:visible;
+
+        transform:none;
+
+        overflow:hidden;
+    }
+
+    .nav-dropdown.open .nav-dropdown-menu{
+        display:block;
+
+        transform:none;
+    }
+
+    .nav-dropdown:hover .nav-dropdown-menu{
+        transform:none;
+    }
+
+    .nav-dropdown-menu::before{
+        display:none;
+    }
+
+    .nav-dropdown-menu a{
+        display:block;
+
+        width:100%;
+
+        padding:9px 0;
+
+        background:transparent;
+
+        font-size:10px;
+
+        line-height:1.35;
+
+        white-space:normal;
+
+        overflow-wrap:anywhere;
+
+        opacity:.68;
+    }
+
+    .nav-dropdown-menu a:hover{
+        background:none;
+
+        padding-left:4px;
+
+        color:var(--red);
+
+        opacity:1;
+    }
+
+
+    /* MOBILE HERO */
+
+    .hero{
+        min-height:680px;
+
+        height:auto;
+
+        align-items:flex-end;
+    }
+
     .hero-content{
-        padding-top:150px;
-        padding-bottom:50px;
+        width:calc(100% - 34px);
+
+        padding:115px 0 35px;
+    }
+
+    .hero-top{
+        margin-bottom:30px;
+    }
+
+    .hero-location{
+        font-size:9px;
+    }
+
+    .hero-index{
+        font-size:9px;
     }
 
     .hero-title{
-        font-size:clamp(60px,12vw,100px);
+        max-width:100%;
+
+        font-size:clamp(52px,15vw,82px);
+
+        line-height:.86;
+
+        letter-spacing:-.055em;
+
+        overflow-wrap:normal;
+
+        word-break:normal;
     }
 
     .hero-bottom{
-        grid-template-columns:1fr;
-        gap:30px;
+        display:block;
+
+        margin-top:40px;
+    }
+
+    .hero-description{
+        max-width:100%;
+
+        font-size:14px;
+
+        line-height:1.6;
     }
 
     .hero-actions{
-        justify-content:flex-start;
+        width:100%;
+
+        display:grid;
+
+        grid-template-columns:1fr;
+
+        gap:9px;
+
+        margin-top:24px;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+
+        min-width:0;
     }
 
     .hero-trust{
+        margin-top:42px;
+
+        padding-top:17px;
+
         grid-template-columns:1fr 1fr;
-        row-gap:20px;
+
+        row-gap:18px;
     }
 
-    .hero-trust-item:nth-child(3),
-    .hero-trust-item:nth-child(4){
-        border-top:1px solid rgba(255,255,255,.15);
-        padding-top:15px;
+    .hero-trust-item{
+        padding:0 12px 0 0;
+
+        font-size:9px;
     }
 
-    .intro-grid,
-    .services-header,
-    .approach-grid,
-    .security-grid,
-    .work-header,
-    .process-header,
-    .gallery-header,
-    .reviews-header,
-    .contact-grid,
-    .area-grid{
-        grid-template-columns:1fr;
-        gap:50px;
+    .hero-trust-item strong{
+        font-size:10px;
+    }
+
+
+    /* GENERAL */
+
+    .section{
+        padding:75px 0;
+    }
+
+    .intro{
+        padding:75px 0;
+    }
+
+
+    /* INTRO */
+
+    .intro-grid{
+        display:block;
+    }
+
+    .intro-heading{
+        max-width:100%;
+
+        font-size:clamp(45px,13vw,65px);
+
+        margin-bottom:35px;
     }
 
     .intro-copy{
-        font-size:21px;
+        max-width:100%;
+
+        font-size:18px;
+
+        line-height:1.55;
+    }
+
+    .intro-copy p+p{
+        margin-top:18px;
+    }
+
+    .intro-footer{
+        margin-top:50px;
+
+        grid-template-columns:1fr 1fr 1fr;
+    }
+
+    .intro-stat{
+        padding:20px 15px 0 0;
+    }
+
+    .intro-stat:last-child{
+        padding-left:15px;
+    }
+
+    .intro-stat strong{
+        font-size:32px;
+    }
+
+    .intro-stat span{
+        font-size:9px;
+    }
+
+
+    /* TRUST */
+
+    .trust-strip{
+        padding:22px 0;
+    }
+
+    .trust-grid{
+        grid-template-columns:1fr 1fr;
+
+        row-gap:18px;
+    }
+
+    .trust-item{
+        padding:4px 15px;
+    }
+
+    .trust-item:nth-child(odd){
+        padding-left:0;
+    }
+
+    .trust-item:nth-child(even){
+        border-right:0;
+    }
+
+
+    /* SERVICES */
+
+    .services-header{
+        display:block;
+
+        margin-bottom:45px;
+    }
+
+    .services-heading{
+        font-size:clamp(50px,13vw,70px);
+
+        margin-bottom:25px;
+    }
+
+    .services-intro{
+        padding:0;
+
+        font-size:16px;
+
+        line-height:1.6;
     }
 
     .service-row,
     .service-row:nth-child(even){
-        grid-template-columns:1fr;
+        display:flex;
+
+        flex-direction:column;
+
+        min-height:0;
     }
 
     .service-row:nth-child(even) .service-image,
@@ -1954,344 +2782,682 @@ button{
     }
 
     .service-image{
-        min-height:450px;
-    }
+        min-height:310px;
 
-    .security-copy{
-        padding-left:0;
-    }
-
-    .security-image{
-        height:520px;
-        border-radius:0 0 0 70px;
-    }
-
-    .project-grid{
-        grid-template-columns:1fr;
-    }
-
-    .project-stack{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:none;
-    }
-
-    .project-card.large{
-        height:600px;
-    }
-
-    .project-card.small{
-        height:340px;
-    }
-
-    .process-row{
-        grid-template-columns:60px 1fr 60px;
-    }
-
-    .process-copy{
-        display:none;
-    }
-
-    .review-layout{
-        grid-template-columns:1fr;
-    }
-
-    .review-image{
-        height:450px;
-        max-width:500px;
-    }
-
-    .footer-top{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .footer-brand{
-        grid-column:1 / -1;
-    }
-}
-
-
-@media(max-width:600px){
-
-    .container,
-    .nav,
-    .hero-content{
-        width:calc(100% - 34px);
-    }
-
-    .section{
-        padding:90px 0;
-    }
-
-    .hero{
-        min-height:760px;
-    }
-
-    .hero-image img{
-        opacity:.21;
-    }
-
-    .hero-image::after{
-        background:
-            linear-gradient(
-                180deg,
-                rgba(10,10,10,.78) 0%,
-                rgba(10,10,10,.48) 35%,
-                rgba(10,10,10,.76) 65%,
-                rgba(10,10,10,.97) 100%
-            );
-    }
-
-    .hero-content{
-        padding-top:125px;
-        padding-bottom:35px;
-    }
-
-    .hero-top{
-        margin-bottom:35px;
-    }
-
-    .hero-title{
-        font-size:18vw;
-        line-height:.84;
-    }
-
-    .hero-description{
-        font-size:14px;
-    }
-
-    .hero-trust{
-        margin-top:45px;
-    }
-
-    .hero-trust-item{
-        font-size:8px;
-    }
-
-    .intro{
-        padding:90px 0;
-    }
-
-    .intro-heading{
-        font-size:54px;
-    }
-
-    .intro-copy{
-        font-size:19px;
-    }
-
-    .intro-footer{
-        grid-template-columns:1fr;
-    }
-
-    .intro-stat,
-    .intro-stat:last-child{
-        padding:20px 0;
-        border-right:0;
-        border-bottom:1px solid var(--line);
-    }
-
-    .intro-stat:last-child{
-        border-bottom:0;
-    }
-
-    .services-header{
-        margin-bottom:60px;
-    }
-
-    .services-heading{
-        font-size:62px;
-    }
-
-    .service-image{
-        min-height:340px;
+        height:310px;
     }
 
     .service-content{
-        padding:60px 0;
+        padding:45px 0 60px;
+
+        display:block;
+    }
+
+    .service-content::before{
+        display:none;
+    }
+
+    .service-number{
+        margin-bottom:22px;
     }
 
     .service-title{
-        font-size:50px;
+        font-size:clamp(40px,11vw,55px);
+
+        margin-bottom:22px;
+    }
+
+    .service-copy{
+        max-width:100%;
+
+        font-size:15px;
+
+        line-height:1.65;
+
+        margin-bottom:28px;
+    }
+
+
+    /* WHY */
+
+    .why-grid{
+        display:block;
+    }
+
+    .why-title{
+        font-size:clamp(52px,14vw,72px);
+
+        margin-bottom:35px;
+    }
+
+    .why-intro{
+        font-size:18px;
+
+        margin-bottom:45px;
+    }
+
+    .why-item{
+        grid-template-columns:40px 1fr;
+
+        gap:15px;
+
+        padding:23px 0;
+    }
+
+    .why-item p{
+        grid-column:2;
+
+        font-size:13px;
+    }
+
+    .why-item:hover{
+        padding-left:0;
+        padding-right:0;
+    }
+
+
+    /* APPROACH */
+
+    .approach-grid{
+        display:block;
     }
 
     .approach-heading{
-        font-size:65px;
+        font-size:clamp(52px,14vw,75px);
+
+        margin-bottom:35px;
     }
 
     .approach-lead{
-        font-size:20px;
+        font-size:18px;
+
+        margin-bottom:45px;
     }
 
     .approach-item{
         grid-template-columns:45px 1fr;
+
         gap:15px;
+
+        padding:23px 0;
     }
 
     .approach-item p{
         grid-column:2;
     }
 
+    .approach-item:hover{
+        padding-left:0;
+    }
+
+
+    /* SECURITY */
+
+    .security-feature{
+        padding:75px 0;
+    }
+
+    .security-grid{
+        display:flex;
+
+        flex-direction:column;
+
+        gap:40px;
+    }
+
     .security-image{
-        height:400px;
-        border-radius:0 0 0 50px;
+        width:calc(100% - 12px);
+
+        height:350px;
+
+        border-radius:0 0 0 45px;
+
+        box-shadow:
+            -12px 12px 0 var(--red);
+
+        order:2;
+    }
+
+    .security-copy{
+        order:1;
     }
 
     .security-title{
-        font-size:58px;
+        font-size:clamp(48px,13vw,68px);
+
+        margin:22px 0 25px;
+    }
+
+    .security-text{
+        font-size:16px;
+    }
+
+
+    /* WORK */
+
+    .work-header{
+        display:block;
+
+        margin-bottom:45px;
     }
 
     .work-title{
-        font-size:65px;
+        font-size:clamp(50px,13vw,70px);
+
+        margin-bottom:25px;
+    }
+
+    .work-intro{
+        font-size:16px;
+    }
+
+    .work-grid{
+        display:block;
     }
 
     .project-card.large{
-        height:450px;
+        height:380px;
+
+        margin-bottom:10px;
     }
 
     .project-stack{
-        grid-template-columns:1fr;
-        gap:14px;
-    }
-
-    .project-card.small{
-        height:300px;
-    }
-
-    .work-footer{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:20px;
-    }
-
-    .gallery-title{
-        font-size:65px;
-    }
-
-    .gallery-grid{
         display:grid;
 
         grid-template-columns:1fr 1fr;
 
-        grid-template-rows:
-            300px
-            220px
-            300px
-            220px;
-    }
-
-    .gallery-item:nth-child(1){
-        grid-column:1 / span 2;
-        grid-row:1;
-    }
-
-    .gallery-item:nth-child(2){
-        grid-column:1;
-        grid-row:2;
-    }
-
-    .gallery-item:nth-child(3){
-        grid-column:2;
-        grid-row:2;
-    }
-
-    .gallery-item:nth-child(4){
-        grid-column:1 / span 2;
-        grid-row:3;
-    }
-
-    .gallery-item:nth-child(5){
-        grid-column:1;
-        grid-row:4;
-    }
-
-    .gallery-item:nth-child(6){
-        grid-column:2;
-        grid-row:4;
-    }
-
-    .review{
-        grid-template-columns:1fr;
-        gap:15px;
-    }
-
-    .review-text{
-        font-size:25px;
-    }
-
-    .review-image{
-        height:340px;
-    }
-
-    .faq-question{
-        grid-template-columns:35px 1fr 25px;
         gap:10px;
     }
 
-    .faq-question span:nth-child(2){
-        font-size:15px;
+    .project-card.small{
+        height:230px;
+    }
+
+    .project-overlay{
+        padding:22px;
+    }
+
+    .project-overlay h3{
+        font-size:19px;
+    }
+
+
+    /* PROCESS */
+
+    .process-header{
+        display:block;
+
+        margin-bottom:45px;
+    }
+
+    .process-title{
+        font-size:clamp(50px,13vw,70px);
+
+        margin-bottom:25px;
+    }
+
+    .process-intro{
+        font-size:17px;
+    }
+
+    .process-row{
+        grid-template-columns:42px 1fr 25px;
+
+        gap:10px;
+
+        padding:22px 0;
+    }
+
+    .process-number{
+        font-size:25px;
+    }
+
+    .process-name{
+        font-size:18px;
+    }
+
+    .process-copy{
+        grid-column:2;
+
+        font-size:12px;
+    }
+
+    .process-arrow{
+        grid-column:3;
+        grid-row:1;
+    }
+
+    .process-row:hover{
+        padding-left:0;
+    }
+
+
+    /* REVIEWS */
+
+    .reviews-header{
+        display:block;
+
+        margin-bottom:45px;
+    }
+
+    .reviews-title{
+        font-size:clamp(50px,13vw,70px);
+
+        margin-bottom:25px;
+    }
+
+    .reviews-intro{
+        font-size:14px;
+    }
+
+    .review-grid{
+        grid-template-columns:1fr;
+    }
+
+    .review-card{
+        padding:30px 22px;
+    }
+
+    .review-card p{
+        font-size:24px;
+    }
+
+
+    /* FAQ */
+
+    .faq-grid{
+        display:block;
+    }
+
+    .faq-title{
+        font-size:clamp(50px,13vw,70px);
+
+        margin-bottom:45px;
+    }
+
+    .faq-question{
+        padding:21px 0;
+
+        font-size:14px;
     }
 
     .faq-answer p{
-        padding-left:45px;
+        font-size:13px;
+    }
+
+
+    /* CTA */
+
+    .final-cta{
+        padding:75px 0;
+    }
+
+    .final-cta-inner{
+        display:block;
+    }
+
+    .final-cta-title{
+        font-size:clamp(52px,14vw,78px);
+
+        margin-bottom:30px;
+    }
+
+    .final-cta-copy{
+        max-width:100%;
+
+        margin-bottom:25px;
+    }
+
+
+    /* CONTACT */
+
+    .contact-grid{
+        display:block;
     }
 
     .contact-title{
-        font-size:70px;
+        font-size:clamp(52px,14vw,75px);
+
+        margin-bottom:25px;
+    }
+
+    .contact-copy{
+        font-size:15px;
+
+        margin-top:0;
+    }
+
+    .contact-details{
+        margin-top:40px;
+
+        margin-bottom:55px;
     }
 
     .form-row{
         grid-template-columns:1fr;
-        gap:0;
+
+        gap:20px;
     }
 
-    .area-map{
-        height:350px;
+    .contact-form{
+        width:100%;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+        width:100%;
+
+        max-width:100%;
+
+        font-size:16px;
+    }
+
+    .form-submit{
+        width:100%;
+    }
+
+
+    /* FOOTER */
+
+    .footer{
+        padding:60px 0 30px;
     }
 
     .footer-top{
         grid-template-columns:1fr;
-        gap:40px;
+
+        gap:45px;
+
+        padding-bottom:45px;
     }
 
-    .footer-brand{
-        grid-column:auto;
+    .footer-logo img{
+        width:115px;
     }
 
     .footer-bottom{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:10px;
+        display:block;
+
+        line-height:1.7;
+    }
+
+    .footer-bottom span{
+        display:block;
+
+        margin-bottom:8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media(max-width:420px){
+
+    .container{
+        width:calc(100% - 28px);
+    }
+
+    .nav{
+        width:calc(100% - 28px);
+    }
+
+    .nav-links{
+        top:67px;
+
+        left:14px;
+        right:14px;
+
+        max-height:calc(100svh - 82px);
+
+        padding:17px;
+    }
+
+    .logo img{
+        width:92px;
+    }
+
+    .hero{
+        min-height:640px;
+    }
+
+    .hero-content{
+        width:calc(100% - 28px);
+
+        padding-top:105px;
+        padding-bottom:25px;
+    }
+
+    .hero-title{
+        font-size:14.5vw;
+    }
+
+    .hero-trust{
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+    .hero-trust-item{
+        padding-right:0;
+    }
+
+    .hero-bottom{
+        margin-top:32px;
+    }
+
+    .intro-stat strong{
+        font-size:28px;
+    }
+
+    .service-image{
+        height:270px;
+        min-height:270px;
+    }
+
+    .project-stack{
+        grid-template-columns:1fr;
+    }
+
+    .project-card.small{
+        height:260px;
+    }
+
+    .security-image{
+        height:300px;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media(hover:none){
+
+    .service-row:hover .service-image img{
+        transform:none;
+    }
+
+    .project-card:hover img{
+        transform:none;
+    }
+
+    .why-item:hover{
+        padding-left:0;
+        padding-right:0;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto !important;
+
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+    }
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#e9e7e2;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--red);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--red-dark);
+}
+
+
+
+/* =========================================================
+   COMPACT WHY / APPROACH
+========================================================= */
+
+.why-sd.section,
+.approach.section{
+    padding-top:90px;
+    padding-bottom:90px;
+}
+
+.why-grid,
+.approach-grid{
+    gap:60px;
+}
+
+.why-intro,
+.approach-lead{
+    margin-bottom:0;
+}
+
+.why-list-compact,
+.approach-list-compact{
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+}
+
+.why-compact-copy,
+.approach-compact-copy{
+    max-width:620px;
+    font-size:15px;
+    line-height:1.55;
+    color:var(--muted);
+}
+
+@media(max-width:900px){
+    .why-sd.section,
+    .approach.section{
+        padding-top:55px;
+        padding-bottom:55px;
+    }
+
+    .why-grid,
+    .approach-grid{
+        gap:28px;
+    }
+
+    .why-title,
+    .approach-heading{
+        margin-bottom:18px;
+    }
+
+    .why-intro,
+    .approach-lead{
+        font-size:16px;
+        line-height:1.5;
+    }
+
+    .why-list-compact,
+    .approach-list-compact{
+        margin-top:18px;
+        padding-top:16px;
+    }
+
+    .why-compact-copy,
+    .approach-compact-copy{
+        font-size:14px;
+        line-height:1.5;
     }
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =====================================================
+<!-- =======================================================
      HEADER
-====================================================== -->
+======================================================= -->
 
 <header class="site-header" id="siteHeader">
 
     <nav class="nav">
 
         <a href="#" class="logo">
-
             <img
                 src="assets/images/SD-FinalLogo01.png"
                 alt="SD Electrical & Security Ltd"
             >
-
         </a>
-
 
         <div class="nav-links" id="navLinks">
 
-            <a href="#services">Services</a>
+            <div class="nav-dropdown" id="servicesDropdown">
+
+                <button
+                    class="nav-dropdown-toggle"
+                    type="button"
+                    aria-expanded="false"
+                >
+                    Services
+                    <span class="nav-dropdown-arrow">⌄</span>
+                </button>
+
+                <div class="nav-dropdown-menu">
+
+                    <a href="pages/electrical.html">Electrical</a>
+                    <a href="pages/security.html">Security Systems</a>
+                    <a href="pages/cctv.html">CCTV</a>
+                    <a href="pages/alarms.html">Alarms</a>
+                    <a href="pages/electrical-testing.html">Electrical Testing</a>
+                    <a href="pages/ev-charging.html">EV Charging</a>
+                    <a href="pages/emergency-lighting.html">Emergency Lighting</a>
+
+                </div>
+
+            </div>
+
             <a href="#work">Work</a>
             <a href="#process">Process</a>
             <a href="#reviews">Reviews</a>
@@ -2299,7 +3465,6 @@ button{
             <a href="#contact">Contact</a>
 
         </div>
-
 
         <div class="header-right">
 
@@ -2321,6 +3486,7 @@ button{
                 class="menu-toggle"
                 id="menuToggle"
                 aria-label="Open navigation"
+                aria-expanded="false"
             >
                 <span></span>
                 <span></span>
@@ -2333,10 +3499,9 @@ button{
 </header>
 
 
-
-<!-- =====================================================
+<!-- =======================================================
      HERO
-====================================================== -->
+======================================================= -->
 
 <section class="hero">
 
@@ -2344,11 +3509,10 @@ button{
 
         <img
             src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
-            alt="Electrical engineer working on an installation"
+            alt="Electrical engineer working on an electrical system"
         >
 
     </div>
-
 
     <div class="hero-content">
 
@@ -2360,33 +3524,33 @@ button{
             </div>
 
             <div class="hero-index">
-                01 / 08
+                01 / SD
             </div>
 
         </div>
 
-
         <h1 class="hero-title">
 
-            Electrical.<br>
+            Electrical.
+            <br>
 
-            <em>Security.</em><br>
+            <em>Security.</em>
+
+            <br>
 
             Done properly.
 
         </h1>
 
-
         <div class="hero-bottom">
 
             <p class="hero-description">
 
-                SD Electrical & Security Ltd delivers electrical
-                installations and security systems with a focus
-                on precision, reliability and work that lasts.
+                Professional electrical and security solutions
+                for homes, businesses and commercial properties
+                across Birmingham and the surrounding areas.
 
             </p>
-
 
             <div class="hero-actions">
 
@@ -2394,13 +3558,12 @@ button{
                     href="#contact"
                     class="btn btn-light"
                 >
-                    Start a project
-                    <span>↗</span>
+                    Request a quote
                 </a>
 
                 <a
                     href="tel:+447535638491"
-                    class="btn"
+                    class="btn btn-outline"
                 >
                     07535 638491
                 </a>
@@ -2409,42 +3572,26 @@ button{
 
         </div>
 
-
         <div class="hero-trust">
 
             <div class="hero-trust-item">
+                <strong>20+ Years</strong>
+                of Experience
+            </div>
 
+            <div class="hero-trust-item">
                 <strong>Electrical</strong>
-
                 Installation & maintenance
-
             </div>
 
-
             <div class="hero-trust-item">
-
                 <strong>Security</strong>
-
                 CCTV & protection systems
-
             </div>
 
-
             <div class="hero-trust-item">
-
                 <strong>Commercial</strong>
-
                 Business & property work
-
-            </div>
-
-
-            <div class="hero-trust-item">
-
-                <strong>Domestic</strong>
-
-                Homes & private properties
-
             </div>
 
         </div>
@@ -2454,86 +3601,66 @@ button{
 </section>
 
 
-
-<!-- =====================================================
+<!-- =======================================================
      INTRO
-====================================================== -->
+======================================================= -->
 
-<section class="intro section">
+<section class="intro">
 
     <div class="container">
 
-        <div class="intro-grid reveal">
+        <div class="intro-grid">
 
             <div>
 
                 <div class="eyebrow">
-                    The difference
+                    Who we are
                 </div>
 
-                <h2 class="intro-heading">
+                <h2 class="intro-heading serif reveal">
 
                     Built around
-                    <em>the job.</em>
+                    <em>experience.</em>
 
                 </h2>
 
             </div>
 
-
             <div>
 
-                <div class="intro-copy">
+                <div class="intro-copy reveal">
 
                     <p>
-                        Electrical work should be straightforward.
-                        Security should be considered from the start.
-                        And the finished result should feel like it
-                        belongs there.
+                        SD Electrical & Security Ltd provides
+                        professional electrical, security and
+                        specialist systems for residential,
+                        commercial and industrial environments.
                     </p>
 
                     <p>
-                        We combine practical electrical expertise
-                        with modern security installation to deliver
-                        work that is clean, considered and built for
-                        the property in front of us.
+                        With more than 20 years of experience,
+                        we focus on doing the work properly —
+                        from the first assessment through to
+                        installation, testing and completion.
                     </p>
 
                 </div>
 
-
-                <div class="intro-footer">
+                <div class="intro-footer reveal">
 
                     <div class="intro-stat">
-
-                        <strong>01</strong>
-
-                        <span>
-                            Electrical installation
-                        </span>
-
+                        <strong>20+</strong>
+                        <span>Years experience</span>
                     </div>
 
-
                     <div class="intro-stat">
-
-                        <strong>02</strong>
-
-                        <span>
-                            Security systems
-                        </span>
-
+                        <strong>BHM</strong>
+                        <span>Birmingham based</span>
                     </div>
 
-
                     <div class="intro-stat">
-
-                        <strong>03</strong>
-
-                        <span>
-                            Ongoing support
-                        </span>
-
+                        <strong>24/7</strong>
+                        <span>Emergency support</span>
                     </div>
 
                 </div>
@@ -2547,10 +3674,9 @@ button{
 </section>
 
 
-
-<!-- =====================================================
-     TRUST
-====================================================== -->
+<!-- =======================================================
+     TRUST STRIP
+======================================================= -->
 
 <section class="trust-strip">
 
@@ -2559,46 +3685,23 @@ button{
         <div class="trust-grid">
 
             <div class="trust-item">
-
-                <strong>Electrical work</strong>
-
-                <span>
-                    Installation & maintenance
-                </span>
-
+                <strong>20+ Years Experience</strong>
+                <span>Established expertise</span>
             </div>
 
-
             <div class="trust-item">
-
-                <strong>CCTV</strong>
-
-                <span>
-                    Security camera systems
-                </span>
-
+                <strong>Electrical</strong>
+                <span>Installations & testing</span>
             </div>
 
-
             <div class="trust-item">
-
                 <strong>Security</strong>
-
-                <span>
-                    Protection designed around you
-                </span>
-
+                <span>CCTV, alarms & access</span>
             </div>
 
-
             <div class="trust-item">
-
                 <strong>Birmingham</strong>
-
-                <span>
-                    West Midlands & surrounding areas
-                </span>
-
+                <span>Serving the West Midlands</span>
             </div>
 
         </div>
@@ -2608,10 +3711,9 @@ button{
 </section>
 
 
-
-<!-- =====================================================
+<!-- =======================================================
      SERVICES
-====================================================== -->
+======================================================= -->
 
 <section
     class="services section"
@@ -2620,286 +3722,417 @@ button{
 
     <div class="container">
 
-        <div class="services-header reveal">
+        <div class="services-header">
 
-            <div>
+            <h2 class="services-heading reveal">
 
-                <div class="eyebrow">
-                    What we do
-                </div>
+                What we
+                <em>do.</em>
 
-                <h2 class="services-heading">
+            </h2>
 
-                    Three things.<br>
+            <p class="services-intro reveal">
 
-                    <em>Done properly.</em>
-
-                </h2>
-
-            </div>
-
-
-            <p class="services-intro">
-
-                From electrical installations through to
-                security systems, every job starts with
-                understanding the property, the requirement
-                and what the finished result needs to achieve.
+                From electrical installations and testing
+                through to complete security systems,
+                SD provides practical solutions designed
+                around the property, the people and the
+                way the space is used.
 
             </p>
 
         </div>
 
 
+        <!-- ELECTRICAL -->
 
-        <article class="service-row reveal">
+        <div class="service-row reveal">
 
             <div class="service-image">
+
+                <a href="pages/electrical.html" style="display:block;height:100%;">
 
                 <img
                     src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
-                    alt="Electrical engineer checking an electrical installation"
+                    alt="Electrical installation work"
                     loading="lazy"
                 >
 
-            </div>
+                </a>
 
+            </div>
 
             <div class="service-content">
 
-                <span class="service-number">
-                    01 / Electrical
-                </span>
+                <div class="service-number">
+                    01 / ELECTRICAL
+                </div>
 
                 <h3 class="service-title">
                     Electrical
-                    installations.
+                    <em class="serif">installations.</em>
                 </h3>
 
                 <p class="service-copy">
 
-                    Electrical work planned around the building,
-                    the people using it and the way it needs to
-                    perform. From installations and upgrades to
-                    fault finding and ongoing work.
+                    Electrical installation and maintenance
+                    for domestic, commercial and property
+                    projects, with a focus on safe,
+                    considered workmanship.
 
                 </p>
 
                 <a
-                    href="#contact"
+                    href="pages/electrical.html"
                     class="text-link"
                 >
-                    Discuss electrical work
+                    Explore electrical
                 </a>
 
             </div>
 
-        </article>
+        </div>
 
 
+        <!-- SECURITY -->
 
-        <article class="service-row reveal">
+        <div class="service-row reveal">
 
             <div class="service-image">
+
+                <a href="pages/security.html" style="display:block;height:100%;">
 
                 <img
                     src="assets/images/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg"
-                    alt="Electrician working inside an electrical switchboard"
+                    alt="Security and electrical systems"
                     loading="lazy"
                 >
 
-            </div>
-
-
-            <div class="service-content">
-
-                <span class="service-number">
-                    02 / Electrical systems
-                </span>
-
-                <h3 class="service-title">
-                    Systems
-                    that work.
-                </h3>
-
-                <p class="service-copy">
-
-                    Distribution boards, connections, upgrades
-                    and electrical infrastructure carried out
-                    with attention to the detail that often gets
-                    overlooked.
-
-                </p>
-
-                <a
-                    href="#contact"
-                    class="text-link"
-                >
-                    Talk through a project
                 </a>
 
             </div>
 
-        </article>
-
-
-
-        <article class="service-row reveal">
-
-            <div class="service-image">
-
-                <img
-                    src="assets/images/man-electrical-technician-working-switchboard-with-fuses.jpg"
-                    alt="Electrical technician working on a switchboard"
-                    loading="lazy"
-                >
-
-            </div>
-
-
             <div class="service-content">
 
-                <span class="service-number">
-                    03 / Security
-                </span>
+                <div class="service-number">
+                    02 / SECURITY
+                </div>
 
                 <h3 class="service-title">
                     Security
-                    with purpose.
+                    <em class="serif">systems.</em>
                 </h3>
 
                 <p class="service-copy">
 
-                    CCTV and security systems positioned around
-                    how a property is actually used. Practical
-                    protection without making the installation
-                    feel intrusive.
+                    Integrated security solutions including
+                    CCTV, alarms, access control and
+                    monitoring systems for homes and
+                    businesses.
 
                 </p>
 
                 <a
-                    href="#contact"
+                    href="pages/security.html"
                     class="text-link"
                 >
-                    Plan security
+                    Explore security
                 </a>
 
             </div>
 
-        </article>
-
-    </div>
-
-</section>
+        </div>
 
 
+        <!-- CCTV -->
 
-<!-- =====================================================
-     APPROACH
-====================================================== -->
+        <div class="service-row reveal">
 
-<section class="approach section">
+            <div class="service-image">
 
-    <div class="container">
+                <a href="pages/cctv.html" style="display:block;height:100%;">
 
-        <div class="approach-grid reveal">
+                <img
+                    src="https://storage.googleapis.com/content-assistant-images-persistent/technician-installing-an-ip-security-camera-in-a-commercial-setting-5fe96019-5eed-4cab-861f-a5017d191576.webp"
+                    alt="CCTV security camera installation"
+                    loading="lazy"
+                >
 
-            <div>
-
-                <div class="eyebrow">
-                    Our approach
-                </div>
-
-                <h2 class="approach-heading">
-                    Built around
-                    <em>the job.</em>
-                </h2>
+                </a>
 
             </div>
 
+            <div class="service-content">
 
-            <div class="approach-content">
+                <div class="service-number">
+                    03 / CCTV
+                </div>
 
-                <p class="approach-lead">
+                <h3 class="service-title">
+                    CCTV &
+                    <em class="serif">surveillance.</em>
+                </h3>
 
-                    Good installation is more than putting
-                    equipment where there is space. It is about
-                    understanding the property first.
+                <p class="service-copy">
+
+                    Professionally installed CCTV systems
+                    designed to give you visibility,
+                    reassurance and control.
 
                 </p>
 
+                <a
+                    href="pages/cctv.html"
+                    class="text-link"
+                >
+                    Explore CCTV
+                </a>
 
-                <div class="approach-list">
+            </div>
 
-                    <div class="approach-item">
-
-                        <span class="approach-item-number">01</span>
-
-                        <h3>
-                            Understand the property
-                        </h3>
-
-                        <p>
-                            We look at how the building is used,
-                            what already exists and what the
-                            installation needs to achieve.
-                        </p>
-
-                    </div>
+        </div>
 
 
-                    <div class="approach-item">
+        <!-- ALARMS -->
 
-                        <span class="approach-item-number">02</span>
+        <div class="service-row reveal">
 
-                        <h3>
-                            Design around it
-                        </h3>
+            <div class="service-image">
 
-                        <p>
-                            Equipment, routes and positioning are
-                            considered around the building rather
-                            than forcing a standard package into it.
-                        </p>
+                <a href="pages/alarms.html" style="display:block;height:100%;">
 
-                    </div>
+                <img
+                    src="assets/images/man-electrical-technician-working-switchboard-with-fuses.jpg"
+                    alt="Electrical and alarm installation"
+                    loading="lazy"
+                >
 
+                </a>
 
-                    <div class="approach-item">
+            </div>
 
-                        <span class="approach-item-number">03</span>
+            <div class="service-content">
 
-                        <h3>
-                            Install properly
-                        </h3>
-
-                        <p>
-                            Clean installation, considered
-                            positioning and attention to the
-                            small details that make the finished
-                            result feel right.
-                        </p>
-
-                    </div>
-
-
-                    <div class="approach-item">
-
-                        <span class="approach-item-number">04</span>
-
-                        <h3>
-                            Leave it working
-                        </h3>
-
-                        <p>
-                            The job is not finished when the tools
-                            are packed away. Systems need to be
-                            usable, reliable and understood.
-                        </p>
-
-                    </div>
-
+                <div class="service-number">
+                    04 / ALARMS
                 </div>
+
+                <h3 class="service-title">
+                    Alarm
+                    <em class="serif">systems.</em>
+                </h3>
+
+                <p class="service-copy">
+
+                    Modern alarm systems designed around
+                    your property, providing reliable
+                    protection when you need it.
+
+                </p>
+
+                <a
+                    href="pages/alarms.html"
+                    class="text-link"
+                >
+                    Explore alarms
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACCESS -->
+
+        <div class="service-row reveal">
+
+            <div class="service-image">
+
+                <a href="pages/access-control.html" style="display:block;height:100%;">
+
+                <img
+                    src="assets/images/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg"
+                    alt="Access control installation"
+                    loading="lazy"
+                >
+
+                </a>
+
+            </div>
+
+            <div class="service-content">
+
+                <div class="service-number">
+                    05 / ACCESS CONTROL
+                </div>
+
+                <h3 class="service-title">
+                    Access
+                    <em class="serif">control.</em>
+                </h3>
+
+                <p class="service-copy">
+
+                    Control who can enter your building with
+                    professionally installed access systems
+                    for commercial and private properties.
+
+                </p>
+
+                <a
+                    href="pages/access-control.html"
+                    class="text-link"
+                >
+                    Explore access control
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- TESTING -->
+
+        <div class="service-row reveal">
+
+            <div class="service-image">
+
+                <a href="pages/electrical-testing.html" style="display:block;height:100%;">
+
+                <img
+                    src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
+                    alt="Electrical testing"
+                    loading="lazy"
+                >
+
+                </a>
+
+            </div>
+
+            <div class="service-content">
+
+                <div class="service-number">
+                    06 / TESTING
+                </div>
+
+                <h3 class="service-title">
+                    Electrical
+                    <em class="serif">testing.</em>
+                </h3>
+
+                <p class="service-copy">
+
+                    Electrical testing and inspection to help
+                    identify faults, confirm safety and keep
+                    installations operating correctly.
+
+                </p>
+
+                <a
+                    href="pages/electrical-testing.html"
+                    class="text-link"
+                >
+                    Explore testing
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- EV -->
+
+        <div class="service-row reveal">
+
+            <div class="service-image">
+
+                <a href="pages/ev-charging.html" style="display:block;height:100%;">
+
+                <img
+                    src="assets/images/man-electrical-technician-working-switchboard-with-fuses.jpg"
+                    alt="EV charging installation"
+                    loading="lazy"
+                >
+
+                </a>
+
+            </div>
+
+            <div class="service-content">
+
+                <div class="service-number">
+                    07 / EV CHARGING
+                </div>
+
+                <h3 class="service-title">
+                    EV
+                    <em class="serif">charging.</em>
+                </h3>
+
+                <p class="service-copy">
+
+                    EV charging installations designed for
+                    homes, workplaces and commercial
+                    properties.
+
+                </p>
+
+                <a
+                    href="pages/ev-charging.html"
+                    class="text-link"
+                >
+                    Explore EV charging
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMERGENCY LIGHTING -->
+
+        <div class="service-row reveal">
+
+            <div class="service-image">
+
+                <a href="pages/emergency-lighting.html" style="display:block;height:100%;">
+
+                <img
+                    src="assets/images/man-electrical-technician-working-switchboard-with-fuses.jpg"
+                    alt="Emergency lighting installation"
+                    loading="lazy"
+                >
+
+                </a>
+
+            </div>
+
+            <div class="service-content">
+
+                <div class="service-number">
+                    08 / EMERGENCY LIGHTING
+                </div>
+
+                <h3 class="service-title">
+                    Emergency
+                    <em class="serif">lighting.</em>
+                </h3>
+
+                <p class="service-copy">
+
+                    Emergency lighting, exit signage,
+                    inspection and maintenance designed
+                    to keep escape routes visible when
+                    normal lighting fails.
+
+                </p>
+
+                <a
+                    href="pages/emergency-lighting.html"
+                    class="text-link"
+                >
+                    Explore emergency lighting
+                </a>
 
             </div>
 
@@ -2910,55 +4143,163 @@ button{
 </section>
 
 
+<!-- =======================================================
+     WHY SD
+======================================================= -->
 
-<!-- =====================================================
+<section
+    class="why-sd section"
+    id="why"
+>
+
+    <div class="container">
+
+        <div class="why-grid">
+
+            <div>
+
+                <div class="eyebrow">
+                    Why SD
+                </div>
+
+                <h2 class="why-title reveal">
+
+                    Experience
+                    <em>matters.</em>
+
+                </h2>
+
+            </div>
+
+            <div>
+
+                <p class="why-intro reveal">
+
+                    Good electrical and security work is
+                    about more than installation. It is about
+                    understanding the property, identifying
+                    the right solution and leaving everything
+                    working properly.
+
+                </p>
+
+                <div class="why-list why-list-compact">
+
+                    <p class="why-compact-copy reveal">20+ years of practical experience across electrical and security projects, with clear advice and quality installation from start to finish.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     APPROACH
+======================================================= -->
+
+<section
+    class="approach section"
+    id="process"
+>
+
+    <div class="container">
+
+        <div class="approach-grid">
+
+            <h2 class="approach-heading reveal">
+
+                A better
+                <em>way of working.</em>
+
+            </h2>
+
+            <div class="approach-content">
+
+                <p class="approach-lead reveal">
+
+                    Every project starts with understanding
+                    what you actually need. We then design,
+                    install, test and complete the work with
+                    as little disruption as possible.
+
+                </p>
+
+                <div class="approach-list approach-list-compact">
+
+                    <p class="approach-compact-copy reveal">We listen, assess, install and test with as little disruption as possible — keeping every project straightforward from start to finish.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
      SECURITY FEATURE
-====================================================== -->
+======================================================= -->
 
 <section class="security-feature">
 
     <div class="container">
 
-        <div class="security-grid reveal">
+        <div class="security-grid">
 
-            <div class="security-copy">
+            <div class="security-image reveal">
+
+                <img
+                    src="https://storage.googleapis.com/content-assistant-images-persistent/technician-installing-an-ip-security-camera-in-a-commercial-setting-5fe96019-5eed-4cab-861f-a5017d191576.webp"
+                    alt="Security camera installation"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <div class="security-copy reveal">
 
                 <div class="eyebrow">
-                    Security systems
+                    Security
                 </div>
 
                 <h2 class="security-title">
-                    Protection that
-                    fits the
-                    <em>property.</em>
+
+                    See what
+                    <em>matters.</em>
+
                 </h2>
 
                 <p class="security-text">
 
-                    CCTV and security equipment should work with
-                    the property rather than dominate it. We focus
-                    on sensible positioning, clean installation
-                    and coverage that makes sense.
+                    From CCTV and alarms to access control,
+                    we create security systems around the
+                    way your property is actually used.
+
+                    Whether you need a single camera or a
+                    complete integrated system, the aim is
+                    simple: give you greater visibility,
+                    control and reassurance.
 
                 </p>
 
                 <a
-                    href="#contact"
+                    href="pages/security.html"
                     class="text-link"
                 >
-                    Discuss your security requirements
+                    Explore security systems
                 </a>
-
-            </div>
-
-
-            <div class="security-image">
-
-                <img
-                    src="https://storage.googleapis.com/content-assistant-images-persistent/technician-installing-an-ip-security-camera-in-a-commercial-setting-5fe96019-5eed-4cab-861f-a5017d191576.webp"
-                    alt="Technician installing a security camera"
-                    loading="lazy"
-                >
 
             </div>
 
@@ -2969,10 +4310,9 @@ button{
 </section>
 
 
-
-<!-- =====================================================
-     SELECTED WORK
-====================================================== -->
+<!-- =======================================================
+     WORK
+======================================================= -->
 
 <section
     class="work section"
@@ -2981,266 +4321,96 @@ button{
 
     <div class="container">
 
-        <div class="work-header reveal">
+        <div class="work-header">
 
-            <div>
+            <h2 class="work-title reveal">
 
-                <div class="eyebrow">
-                    Selected work
-                </div>
+                Work that
+                <em>works.</em>
 
-                <h2 class="work-title">
-                    The work
-                    <em>speaks.</em>
-                </h2>
+            </h2>
 
-            </div>
+            <p class="work-intro reveal">
 
-
-            <p class="work-intro">
-
-                A selection of electrical and security work.
-                The photography stays front and centre so
-                visitors can actually see the kind of work
-                being carried out.
+                Electrical installations, security systems
+                and specialist projects completed across
+                Birmingham and the surrounding areas.
 
             </p>
 
         </div>
 
+        <div class="work-grid">
 
-        <div class="project-grid reveal">
-
-
-            <!-- REAL ELECTRICAL PHOTOGRAPH -->
-
-            <article class="project-card large">
+            <div class="project-card large reveal">
 
                 <img
-                    src="assets/images/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg"
-                    alt="Electrician working on an electrical installation"
+                    src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
+                    alt="Electrical project"
                     loading="lazy"
                 >
 
-                <div class="project-info">
+                <div class="project-overlay">
 
-                    <span class="project-category">
-                        Electrical / Installation
+                    <span>
+                        Electrical
                     </span>
 
-                    <div class="project-name">
-                        Electrical installation
-                    </div>
+                    <h3>
+                        Professional installations
+                    </h3>
 
                 </div>
 
-                <div class="project-arrow">
-                    ↗
-                </div>
-
-            </article>
-
-
+            </div>
 
             <div class="project-stack">
 
-
-                <!-- REAL ELECTRICAL PHOTOGRAPH -->
-
-                <article class="project-card small">
+                <div class="project-card small reveal">
 
                     <img
-                        src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
-                        alt="Electrical testing and inspection"
+                        src="assets/images/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg"
+                        alt="Electrical work"
                         loading="lazy"
                     >
 
-                    <div class="project-info">
+                    <div class="project-overlay">
 
-                        <span class="project-category">
-                            Electrical / Testing
+                        <span>
+                            Electrical
                         </span>
 
-                        <div class="project-name">
-                            Testing & inspection
-                        </div>
+                        <h3>
+                            Systems & maintenance
+                        </h3>
 
                     </div>
 
-                    <div class="project-arrow">
-                        ↗
-                    </div>
+                </div>
 
-                </article>
-
-
-
-                <!-- REAL SECURITY PHOTOGRAPH PLACEHOLDER -->
-
-                <article class="project-card small">
+                <div class="project-card small reveal">
 
                     <img
                         src="https://storage.googleapis.com/content-assistant-images-persistent/technician-installing-an-ip-security-camera-in-a-commercial-setting-5fe96019-5eed-4cab-861f-a5017d191576.webp"
-                        alt="Technician installing a CCTV security camera"
+                        alt="CCTV installation"
                         loading="lazy"
                     >
 
-                    <div class="project-info">
+                    <div class="project-overlay">
 
-                        <span class="project-category">
-                            Security / CCTV
+                        <span>
+                            Security
                         </span>
 
-                        <div class="project-name">
-                            Security installation
-                        </div>
+                        <h3>
+                            CCTV & surveillance
+                        </h3>
 
                     </div>
 
-                    <div class="project-arrow">
-                        ↗
-                    </div>
-
-                </article>
-
-            </div>
-
-        </div>
-
-
-        <div class="work-footer">
-
-            <p>
-                Real work. Properly documented.
-            </p>
-
-            <a
-                href="#contact"
-                class="text-link"
-            >
-                Start a project
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     PROCESS
-====================================================== -->
-
-<section
-    class="process section"
-    id="process"
->
-
-    <div class="container">
-
-        <div class="process-header reveal">
-
-            <div>
-
-                <div class="eyebrow">
-                    How we work
                 </div>
 
-                <h2 class="process-title">
-                    Simple from
-                    <em>start to finish.</em>
-                </h2>
-
             </div>
-
-
-            <p class="process-description">
-
-                No unnecessary complications. We keep the process
-                clear, understand the requirement, plan the work
-                and deliver the installation properly.
-
-            </p>
-
-        </div>
-
-
-        <div class="process-list reveal">
-
-
-            <div class="process-row">
-
-                <span class="process-number">01</span>
-
-                <span class="process-name">
-                    Tell us what you need
-                </span>
-
-                <p class="process-copy">
-                    Give us an idea of the property, issue or
-                    project and what you want to achieve.
-                </p>
-
-                <span class="process-arrow">↗</span>
-
-            </div>
-
-
-            <div class="process-row">
-
-                <span class="process-number">02</span>
-
-                <span class="process-name">
-                    Assess the job
-                </span>
-
-                <p class="process-copy">
-                    We consider the existing setup, requirements,
-                    access and practical installation details.
-                </p>
-
-                <span class="process-arrow">↗</span>
-
-            </div>
-
-
-            <div class="process-row">
-
-                <span class="process-number">03</span>
-
-                <span class="process-name">
-                    Agree the work
-                </span>
-
-                <p class="process-copy">
-                    You get a clear understanding of what needs
-                    doing before the work begins.
-                </p>
-
-                <span class="process-arrow">↗</span>
-
-            </div>
-
-
-            <div class="process-row">
-
-                <span class="process-number">04</span>
-
-                <span class="process-name">
-                    Install & complete
-                </span>
-
-                <p class="process-copy">
-                    The installation is completed with attention
-                    to function, finish and the property itself.
-                </p>
-
-                <span class="process-arrow">↗</span>
-
-            </div>
-
 
         </div>
 
@@ -3249,182 +4419,9 @@ button{
 </section>
 
 
-
-<!-- =====================================================
-     GALLERY
-====================================================== -->
-
-<section class="gallery section">
-
-    <div class="container">
-
-        <div class="gallery-header reveal">
-
-            <div>
-
-                <div class="eyebrow">
-                    Project gallery
-                </div>
-
-                <h2 class="gallery-title">
-                    Every project.
-                    <em>Unfiltered.</em>
-                </h2>
-
-            </div>
-
-
-            <p class="gallery-copy">
-
-                Real installation photography should eventually
-                live here — showing the actual standard of work
-                rather than relying on promotional graphics.
-
-            </p>
-
-        </div>
-
-
-
-        <div class="gallery-grid reveal">
-
-
-            <!-- REAL PHOTO 01 -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="assets/images/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg"
-                    alt="Electrician working on an electrical installation"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Electrical
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL PHOTO 02 -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
-                    alt="Electrical testing work"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Testing
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL SECURITY PHOTO PLACEHOLDER -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="https://storage.googleapis.com/content-assistant-images-persistent/technician-installing-an-ip-security-camera-in-a-commercial-setting-5fe96019-5eed-4cab-861f-a5017d191576.webp"
-                    alt="Technician installing a CCTV security camera"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    CCTV
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL PHOTO 03 -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="assets/images/man-electrical-technician-working-switchboard-with-fuses.jpg"
-                    alt="Electrical technician working on a switchboard"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Installation
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL SECURITY PHOTO PLACEHOLDER -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="https://www.reliancesystemsltd.co.uk/img/security-systems-maintenance.jpg"
-                    alt="Security camera installation"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Security
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL ELECTRICAL PHOTO -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="assets/images/close-up-hand-electrical-engineering-using-measuring-checking-electricity.jpg"
-                    alt="Electrical inspection"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Inspection
-                </span>
-
-            </div>
-
-
-
-            <!-- REAL SECURITY PHOTO PLACEHOLDER -->
-
-            <div class="gallery-item">
-
-                <img
-                    src="https://www.imperialcctv.com/wp-content/uploads/about_expert-installation.jpg"
-                    alt="Professional security system installation"
-                    loading="lazy"
-                >
-
-                <span class="gallery-label">
-                    Security Systems
-                </span>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
+<!-- =======================================================
      REVIEWS
-====================================================== -->
+======================================================= -->
 
 <section
     class="reviews section"
@@ -3433,119 +4430,88 @@ button{
 
     <div class="container">
 
-        <div class="reviews-header reveal">
+        <div class="reviews-header">
 
             <div>
 
-                <div class="eyebrow">
-                    Client feedback
+                <div
+                    class="eyebrow"
+                    style="color:var(--red);"
+                >
+                    Reviews
                 </div>
 
-                <h2 class="reviews-title">
-                    Good work
-                    <em>gets noticed.</em>
+                <h2 class="reviews-title reveal">
+
+                    Trusted
+                    <em>work.</em>
+
                 </h2>
 
             </div>
 
+            <p class="reviews-intro reveal">
 
-            <p class="reviews-intro">
-
-                Trust is important when someone is working on
-                your property. Reviews and recommendations give
-                future clients a clearer picture of what it is
-                like to work with SD Electrical & Security.
+                We believe the quality of the finished
+                installation should speak for itself.
 
             </p>
 
         </div>
 
+        <div class="review-grid">
 
+            <article class="review-card reveal">
 
-        <div class="review-layout reveal">
+                <div class="review-stars">
+                    ★★★★★
+                </div>
 
+                <p>
+                    Professional from start to finish.
+                    The work was completed properly and
+                    everything was explained clearly.
+                </p>
 
-            <div class="review-image">
+                <div class="review-author">
+                    Customer review
+                </div>
 
-                <img
-                    src="assets/images/Reviews.jpg"
-                    alt="SD Electrical & Security reviews"
-                    loading="lazy"
-                >
+            </article>
 
-            </div>
+            <article class="review-card reveal">
 
+                <div class="review-stars">
+                    ★★★★★
+                </div>
 
-            <div class="review-list">
+                <p>
+                    Excellent service and attention to
+                    detail. Would definitely use SD again.
+                </p>
 
+                <div class="review-author">
+                    Customer review
+                </div>
 
-                <article class="review">
+            </article>
 
-                    <div class="review-stars">
-                        ★★★★★
-                    </div>
+            <article class="review-card reveal">
 
-                    <div>
+                <div class="review-stars">
+                    ★★★★★
+                </div>
 
-                        <p class="review-text">
-                            Professional service and a clean
-                            finish from start to completion.
-                        </p>
+                <p>
+                    Reliable, knowledgeable and easy to
+                    deal with from beginning to end.
+                </p>
 
-                        <div class="review-author">
-                            Verified customer
-                        </div>
+                <div class="review-author">
+                    Customer review
+                </div>
 
-                    </div>
-
-                </article>
-
-
-                <article class="review">
-
-                    <div class="review-stars">
-                        ★★★★★
-                    </div>
-
-                    <div>
-
-                        <p class="review-text">
-                            Clear communication, reliable work
-                            and everything left properly finished.
-                        </p>
-
-                        <div class="review-author">
-                            Verified customer
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <article class="review">
-
-                    <div class="review-stars">
-                        ★★★★★
-                    </div>
-
-                    <div>
-
-                        <p class="review-text">
-                            The work was handled professionally
-                            and exactly as discussed.
-                        </p>
-
-                        <div class="review-author">
-                            Verified customer
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-            </div>
+            </article>
 
         </div>
 
@@ -3554,10 +4520,9 @@ button{
 </section>
 
 
-
-<!-- =====================================================
+<!-- =======================================================
      FAQ
-====================================================== -->
+======================================================= -->
 
 <section
     class="faq section"
@@ -3566,166 +4531,165 @@ button{
 
     <div class="container">
 
-        <div class="faq-header reveal">
+        <div class="faq-grid">
 
-            <div class="eyebrow">
-                Questions
+            <div>
+
+                <div class="eyebrow">
+                    FAQ
+                </div>
+
+                <h2 class="faq-title reveal">
+
+                    Questions,
+                    <em>answered.</em>
+
+                </h2>
+
             </div>
 
-            <h2 class="faq-title">
-                Before we
-                <em>get started.</em>
-            </h2>
+            <div class="faq-list">
 
-        </div>
+                <div class="faq-item reveal">
+
+                    <button
+                        class="faq-question"
+                        type="button"
+                    >
+
+                        <span>
+                            What areas do you cover?
+                        </span>
+
+                        <span class="faq-plus">
+                            +
+                        </span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <div class="faq-answer-inner">
+
+                            <p>
+                                SD Electrical & Security Ltd
+                                serves Birmingham and surrounding
+                                areas across the West Midlands.
+                                Contact us with your postcode
+                                and project details and we can
+                                confirm availability.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
-        <div class="faq-list reveal">
+                <div class="faq-item reveal">
+
+                    <button
+                        class="faq-question"
+                        type="button"
+                    >
+
+                        <span>
+                            Do you work on commercial properties?
+                        </span>
+
+                        <span class="faq-plus">
+                            +
+                        </span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <div class="faq-answer-inner">
+
+                            <p>
+                                Yes. We work across residential,
+                                commercial and property environments,
+                                including electrical installations,
+                                testing and security systems.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
 
-            <div class="faq-item">
+                <div class="faq-item reveal">
 
-                <button class="faq-question">
+                    <button
+                        class="faq-question"
+                        type="button"
+                    >
 
-                    <span class="faq-number">01</span>
+                        <span>
+                            Can you install CCTV and alarms?
+                        </span>
 
-                    <span>
-                        What areas do you cover?
-                    </span>
+                        <span class="faq-plus">
+                            +
+                        </span>
 
-                    <span class="faq-icon">+</span>
+                    </button>
 
-                </button>
+                    <div class="faq-answer">
 
-                <div class="faq-answer">
+                        <div class="faq-answer-inner">
 
-                    <p>
-                        SD Electrical & Security Ltd works across
-                        Birmingham, the West Midlands and surrounding
-                        areas. Contact us with your location and
-                        project requirements to discuss your job.
-                    </p>
+                            <p>
+                                Yes. We provide CCTV, alarm,
+                                access control and other security
+                                solutions tailored to the property.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item reveal">
+
+                    <button
+                        class="faq-question"
+                        type="button"
+                    >
+
+                        <span>
+                            Can I request a quote online?
+                        </span>
+
+                        <span class="faq-plus">
+                            +
+                        </span>
+
+                    </button>
+
+                    <div class="faq-answer">
+
+                        <div class="faq-answer-inner">
+
+                            <p>
+                                Yes. Use the enquiry form below
+                                and include as much information
+                                about the work as possible.
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
-
-
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span class="faq-number">02</span>
-
-                    <span>
-                        Do you work on domestic and commercial properties?
-                    </span>
-
-                    <span class="faq-icon">+</span>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-                        Yes. We can discuss electrical and security
-                        requirements for private homes, businesses,
-                        offices, commercial premises and other
-                        properties.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span class="faq-number">03</span>
-
-                    <span>
-                        Can you install CCTV?
-                    </span>
-
-                    <span class="faq-icon">+</span>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-                        CCTV and security installation can be planned
-                        around the property, access points, areas that
-                        need monitoring and the intended use of the
-                        system.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span class="faq-number">04</span>
-
-                    <span>
-                        How do I request a quote?
-                    </span>
-
-                    <span class="faq-icon">+</span>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-                        Use the enquiry form below or call
-                        07535 638491. Tell us what you need,
-                        where the work is and any useful details
-                        about the property.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    <span class="faq-number">05</span>
-
-                    <span>
-                        Can you work with an existing system?
-                    </span>
-
-                    <span class="faq-icon">+</span>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-                        Existing electrical and security systems
-                        can be assessed as part of the initial
-                        discussion so the right approach can be
-                        considered before work begins.
-                    </p>
-
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -3734,10 +4698,52 @@ button{
 </section>
 
 
+<!-- =======================================================
+     CTA
+======================================================= -->
 
-<!-- =====================================================
+<section class="final-cta">
+
+    <div class="container">
+
+        <div class="final-cta-inner">
+
+            <h2 class="final-cta-title reveal">
+
+                Let's get your
+                <em>project moving.</em>
+
+            </h2>
+
+            <div>
+
+                <p class="final-cta-copy">
+
+                    Tell us what you need and we'll
+                    discuss the right solution for
+                    your property.
+
+                </p>
+
+                <a
+                    href="#contact"
+                    class="btn"
+                >
+                    Get a quote
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
      CONTACT
-====================================================== -->
+======================================================= -->
 
 <section
     class="contact section"
@@ -3746,37 +4752,40 @@ button{
 
     <div class="container">
 
-        <div class="contact-grid reveal">
-
+        <div class="contact-grid">
 
             <div>
 
-                <div class="eyebrow">
-                    Start a conversation
+                <div
+                    class="eyebrow"
+                    style="color:var(--red);"
+                >
+                    Contact
                 </div>
 
-                <h2 class="contact-title">
-                    Let's make
-                    it <em>work.</em>
+                <h2 class="contact-title reveal">
+
+                    Tell us
+                    <em>what you need.</em>
+
                 </h2>
 
-                <p class="contact-copy">
+                <p class="contact-copy reveal">
 
-                    Tell us what you are planning, what needs
-                    fixing or what you want protected. We will
-                    start from there.
+                    Request a quote or ask us about
+                    electrical, security, CCTV, alarms,
+                    access control, testing, EV charging
+                    or emergency lighting.
 
                 </p>
 
-
                 <div class="contact-details">
 
+                    <div class="contact-detail reveal">
 
-                    <div class="contact-detail">
-
-                        <small>
+                        <span>
                             Phone
-                        </small>
+                        </span>
 
                         <a href="tel:+447535638491">
                             07535 638491
@@ -3784,42 +4793,38 @@ button{
 
                     </div>
 
+                    <div class="contact-detail reveal">
 
-                    <div class="contact-detail">
-
-                        <small>
+                        <span>
                             Location
-                        </small>
-
-                        <span>
-                            Birmingham · West Midlands
                         </span>
+
+                        <strong>
+                            Birmingham & West Midlands
+                        </strong>
 
                     </div>
 
-
-                    <div class="contact-detail">
-
-                        <small>
-                            Services
-                        </small>
+                    <div class="contact-detail reveal">
 
                         <span>
-                            Electrical · Security · CCTV
+                            Experience
                         </span>
 
-                    </div>
+                        <strong>
+                            20+ years
+                        </strong>
 
+                    </div>
 
                 </div>
 
             </div>
 
 
-
             <form
-                class="contact-form"
-                name="sd-enquiry"
+                class="contact-form reveal"
+                name="sd-electrical-enquiry"
                 method="POST"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
@@ -3828,14 +4833,13 @@ button{
                 <input
                     type="hidden"
                     name="form-name"
-                    value="sd-enquiry"
+                    value="sd-electrical-enquiry"
                 >
 
-
-                <p hidden>
+                <p style="display:none;">
 
                     <label>
-                        Don't fill this out if you're human:
+                        Don't fill this out:
 
                         <input name="bot-field">
 
@@ -3845,7 +4849,6 @@ button{
 
 
                 <div class="form-row">
-
 
                     <div class="form-group">
 
@@ -3857,8 +4860,8 @@ button{
                             id="name"
                             name="name"
                             type="text"
+                            autocomplete="name"
                             required
-                            placeholder="Your name"
                         >
 
                     </div>
@@ -3874,8 +4877,8 @@ button{
                             id="phone"
                             name="phone"
                             type="tel"
+                            autocomplete="tel"
                             required
-                            placeholder="Your number"
                         >
 
                     </div>
@@ -3893,8 +4896,8 @@ button{
                         id="email"
                         name="email"
                         type="email"
+                        autocomplete="email"
                         required
-                        placeholder="Your email"
                     >
 
                 </div>
@@ -3916,24 +4919,40 @@ button{
                             Select a service
                         </option>
 
-                        <option value="electrical">
-                            Electrical work
+                        <option value="Electrical">
+                            Electrical
                         </option>
 
-                        <option value="security">
-                            Security / CCTV
+                        <option value="Security Systems">
+                            Security Systems
                         </option>
 
-                        <option value="commercial">
-                            Commercial work
+                        <option value="CCTV">
+                            CCTV
                         </option>
 
-                        <option value="domestic">
-                            Domestic work
+                        <option value="Alarms">
+                            Alarms
                         </option>
 
-                        <option value="other">
-                            Something else
+                        <option value="Access Control">
+                            Access Control
+                        </option>
+
+                        <option value="Electrical Testing">
+                            Electrical Testing
+                        </option>
+
+                        <option value="EV Charging">
+                            EV Charging
+                        </option>
+
+                        <option value="Emergency Lighting">
+                            Emergency Lighting
+                        </option>
+
+                        <option value="Other">
+                            Other
                         </option>
 
                     </select>
@@ -3950,24 +4969,19 @@ button{
                     <textarea
                         id="message"
                         name="message"
+                        placeholder="Tell us about the project..."
                         required
-                        placeholder="Tell us about the job..."
                     ></textarea>
 
                 </div>
 
 
-                <div class="form-submit">
-
-                    <button
-                        type="submit"
-                        class="btn btn-light"
-                    >
-                        Request a quote
-                        <span>↗</span>
-                    </button>
-
-                </div>
+                <button
+                    type="submit"
+                    class="btn btn-light form-submit"
+                >
+                    Request a quote
+                </button>
 
             </form>
 
@@ -3978,134 +4992,75 @@ button{
 </section>
 
 
-
-<!-- =====================================================
-     SERVICE AREA
-====================================================== -->
-
-<section class="area section">
-
-    <div class="container">
-
-        <div class="area-grid reveal">
-
-
-            <div>
-
-                <div class="eyebrow">
-                    Service area
-                </div>
-
-                <h2 class="area-title">
-                    Birmingham
-                    <em>and beyond.</em>
-                </h2>
-
-                <p class="area-copy">
-
-                    Based around Birmingham and the West Midlands,
-                    SD Electrical & Security Ltd provides electrical
-                    and security services for domestic and commercial
-                    properties across the surrounding area.
-
-                </p>
-
-                <a
-                    href="tel:+447535638491"
-                    class="btn"
-                >
-                    Discuss your location
-                </a>
-
-            </div>
-
-
-            <div class="area-map">
-
-                <div class="area-marker"></div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
+<!-- =======================================================
      FOOTER
-====================================================== -->
+======================================================= -->
 
 <footer class="footer">
 
     <div class="container">
 
-
         <div class="footer-top">
-
 
             <div class="footer-brand">
 
-                <img
+                <a
+                    href="#"
                     class="footer-logo"
-                    src="assets/images/SD-FinalLogo01.png"
-                    alt="SD Electrical & Security Ltd"
                 >
+
+                    <img
+                        src="assets/images/SD-FinalLogo01.png"
+                        alt="SD Electrical & Security Ltd"
+                    >
+
+                </a>
 
                 <p>
 
-                    Electrical and security installations
-                    designed around the property, the people
-                    using it and the job itself.
+                    Electrical and security solutions
+                    across Birmingham and the West Midlands,
+                    backed by more than 20 years of experience.
 
                 </p>
 
             </div>
 
 
-
             <div class="footer-column">
 
-                <h4>
-                    Navigate
-                </h4>
-
-                <a href="#services">
+                <strong>
                     Services
+                </strong>
+
+                <a href="pages/electrical.html">
+                    Electrical
                 </a>
 
-                <a href="#work">
-                    Work
+                <a href="pages/security.html">
+                    Security
                 </a>
 
-                <a href="#process">
-                    Process
+                <a href="pages/cctv.html">
+                    CCTV
                 </a>
 
-                <a href="#reviews">
-                    Reviews
+                <a href="pages/alarms.html">
+                    Alarms
                 </a>
 
-                <a href="#faq">
-                    FAQ
-                </a>
-
-                <a href="#contact">
-                    Contact
+                <a href="pages/access-control.html">
+                    Access Control
                 </a>
 
             </div>
 
 
-
             <div class="footer-column">
 
-                <h4>
+                <strong>
                     Contact
-                </h4>
+                </strong>
 
                 <a href="tel:+447535638491">
                     07535 638491
@@ -4115,16 +5070,11 @@ button{
                     Request a quote
                 </a>
 
-                <a href="#contact">
-                    Birmingham
-                </a>
-
-                <a href="#contact">
-                    West Midlands
+                <a href="#faq">
+                    FAQ
                 </a>
 
             </div>
-
 
         </div>
 
@@ -4136,7 +5086,7 @@ button{
             </span>
 
             <span>
-                Electrical · Security · CCTV
+                Birmingham · West Midlands
             </span>
 
         </div>
@@ -4146,26 +5096,41 @@ button{
 </footer>
 
 
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
 
 <script>
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 const header =
     document.getElementById("siteHeader");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener(
+    "scroll",
+    () => {
 
-    if(window.scrollY>40){
-        header.classList.add("scrolled");
-    }else{
-        header.classList.remove("scrolled");
-    }
+        if(window.scrollY > 40){
 
-});
+            header.classList.add("scrolled");
+
+        }else{
+
+            header.classList.remove("scrolled");
+
+        }
+
+    },
+    {passive:true}
+);
 
 
-/* MOBILE MENU */
+/* =========================================================
+   MOBILE MENU
+========================================================= */
 
 const menuToggle =
     document.getElementById("menuToggle");
@@ -4173,124 +5138,372 @@ const menuToggle =
 const navLinks =
     document.getElementById("navLinks");
 
-menuToggle.addEventListener("click",()=>{
+const servicesDropdown =
+    document.getElementById("servicesDropdown");
 
-    navLinks.classList.toggle("open");
+const dropdownToggle =
+    servicesDropdown.querySelector(
+        ".nav-dropdown-toggle"
+    );
 
-});
 
+menuToggle.addEventListener(
+    "click",
+    () => {
+
+        const isOpen =
+            navLinks.classList.toggle("open");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SERVICES DROPDOWN
+========================================================= */
+
+dropdownToggle.addEventListener(
+    "click",
+    event => {
+
+        if(window.innerWidth <= 900){
+
+            event.preventDefault();
+
+            const isOpen =
+                servicesDropdown.classList.toggle("open");
+
+            dropdownToggle.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MOBILE NAV
+========================================================= */
 
 document
-    .querySelectorAll(".nav-links a")
-    .forEach(link=>{
+    .querySelectorAll(".nav-links > a")
+    .forEach(link => {
 
-        link.addEventListener("click",()=>{
+        link.addEventListener(
+            "click",
+            () => {
 
-            navLinks.classList.remove("open");
+                navLinks.classList.remove("open");
 
-        });
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+        );
 
     });
 
 
-/* REVEAL */
+document
+    .querySelectorAll(".nav-dropdown-menu a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                navLinks.classList.remove("open");
+
+                servicesDropdown.classList.remove("open");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                dropdownToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            navLinks.classList.remove("open");
+
+            servicesDropdown.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            dropdownToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLOSE MENU WHEN CLICKING OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        if(window.innerWidth > 900){
+            return;
+        }
+
+        if(
+            !navLinks.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ){
+
+            navLinks.classList.remove("open");
+
+            servicesDropdown.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            dropdownToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESET MOBILE STATE ON RESIZE
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        if(window.innerWidth > 900){
+
+            navLinks.classList.remove("open");
+
+            servicesDropdown.classList.remove("open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            dropdownToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
 
 const revealObserver =
     new IntersectionObserver(
+        entries => {
 
-        entries=>{
+            entries.forEach(
+                entry => {
 
-            entries.forEach(entry=>{
+                    if(entry.isIntersecting){
 
-                if(entry.isIntersecting){
+                        entry.target.classList.add(
+                            "visible"
+                        );
 
-                    entry.target.classList.add("visible");
+                        revealObserver.unobserve(
+                            entry.target
+                        );
 
-                    revealObserver.unobserve(
-                        entry.target
-                    );
+                    }
 
                 }
-
-            });
+            );
 
         },
-
         {
             threshold:.12
         }
-
     );
 
 
 document
     .querySelectorAll(".reveal")
-    .forEach(element=>{
+    .forEach(
+        element => {
 
-        revealObserver.observe(element);
-
-    });
-
-
-/* FAQ */
-
-const faqItems =
-    document.querySelectorAll(".faq-item");
-
-faqItems.forEach(item=>{
-
-    const question =
-        item.querySelector(".faq-question");
-
-    question.addEventListener("click",()=>{
-
-        const currentlyActive =
-            item.classList.contains("active");
-
-        faqItems.forEach(other=>{
-
-            other.classList.remove("active");
-
-        });
-
-        if(!currentlyActive){
-
-            item.classList.add("active");
+            revealObserver.observe(
+                element
+            );
 
         }
-
-    });
-
-});
+    );
 
 
-/* SMOOTH LINKS */
+/* =========================================================
+   FAQ
+========================================================= */
+
+const faqItems =
+    document.querySelectorAll(
+        ".faq-item"
+    );
+
+
+faqItems.forEach(
+    item => {
+
+        const question =
+            item.querySelector(
+                ".faq-question"
+            );
+
+        question.addEventListener(
+            "click",
+            () => {
+
+                const currentlyActive =
+                    item.classList.contains(
+                        "active"
+                    );
+
+                faqItems.forEach(
+                    other => {
+
+                        other.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+                if(!currentlyActive){
+
+                    item.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SMOOTH ANCHOR SCROLL
+========================================================= */
 
 document
     .querySelectorAll('a[href^="#"]')
-    .forEach(anchor=>{
+    .forEach(
+        anchor => {
 
-        anchor.addEventListener("click",function(e){
+            anchor.addEventListener(
+                "click",
+                function(event){
 
-            const target =
-                document.querySelector(
-                    this.getAttribute("href")
-                );
+                    const selector =
+                        this.getAttribute("href");
 
-            if(target){
+                    if(
+                        !selector ||
+                        selector === "#"
+                    ){
 
-                e.preventDefault();
+                        return;
 
-                target.scrollIntoView({
-                    behavior:"smooth",
-                    block:"start"
-                });
+                    }
 
-            }
+                    const target =
+                        document.querySelector(
+                            selector
+                        );
 
-        });
+                    if(target){
 
-    });
+                        event.preventDefault();
+
+                        target.scrollIntoView({
+                            behavior:"smooth",
+                            block:"start"
+                        });
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   PREVENT STUCK HOVER DROPDOWN ON TOUCH
+========================================================= */
+
+window.addEventListener(
+    "touchstart",
+    () => {
+
+        if(window.innerWidth <= 900){
+
+            servicesDropdown.classList.remove(
+                "hover-state"
+            );
+
+        }
+
+    },
+    {passive:true}
+);
 
 </script>
 
